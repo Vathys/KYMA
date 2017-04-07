@@ -2,7 +2,9 @@ package Enemies;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.util.Random;
 
 import Game.main.*;
@@ -11,12 +13,16 @@ public class EnemyBoss1 extends GameObject{
 	
 	private Handler handler;
 	private Random r = new Random();
+	Image i;
 	
 	private int timer = 175;
 	private int timer2 = 30;
 	
 	public EnemyBoss1(float x, float y, ID id, Handler handler){
 		super(x, y, id);
+		
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		i = toolkit.getImage("res/Bosses/Boss_1.png");
 		
 		this.handler = handler;
 
@@ -49,7 +55,7 @@ public class EnemyBoss1 extends GameObject{
 			velX = Game.clamp(velX, -15, 15);
 			
 			int spawn = r.nextInt(7);
-			if(spawn == 0) handler.addObject(new BasicBullet(x + 40, y + 115, ID.Enemy, Color.red, handler));
+			if(spawn == 0) handler.addObject(new BasicBullet(x + 64, y + 154, ID.Enemy, Color.red, handler));
 			}
 			
 		//if(y <= 0 || y >= Game.HEIGHT - 42) velY *= -1;
@@ -61,6 +67,10 @@ public class EnemyBoss1 extends GameObject{
 	}
 
 	public void render(Graphics g){
+		
+		g.drawImage(i, (int)x, (int)y, 128, 152, null, null);
+		
+		/*
 		g.setColor(Color.red);
 		g.fillRect((int)x, (int)y, 96, 96);
 		
@@ -75,6 +85,7 @@ public class EnemyBoss1 extends GameObject{
 		
 		g.setColor(Color.red);
 		g.fillRect((int)x + 35, (int)y + 74, 25, 40);
+		*/
 	}
 
 	public void hide(Graphics g) {
