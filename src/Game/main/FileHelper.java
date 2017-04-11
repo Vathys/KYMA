@@ -1,7 +1,11 @@
 package Game.main;
 
-import java.io.*;
-import java.math.BigInteger;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,18 +17,20 @@ public class FileHelper {
 	protected static FileWriter fWrite;
 	protected static BufferedWriter bWrite;
 	private String currentData;
+	private int highestScore = 0;
+	private int highestWave = 0;
 	
-	public static void writeFile(ArrayList<String> n, String FileName) throws IOException{
+	
+	public static void writeFile(String n, String FileName) throws IOException{
 		if(!FileExists(FileName)){
 			File file = new File(dir+FileName);
 			file.createNewFile();
 		}
 		fWrite = new FileWriter(new File(dir+FileName));
 		bWrite = new BufferedWriter(fWrite);
-		for(String val : n){
-			bWrite.write(val);
-			bWrite.newLine();
-		}
+		bWrite.write(n);
+		bWrite.newLine();
+		
 		bWrite.close();
 		fWrite.close();
 	}
@@ -57,15 +63,24 @@ public class FileHelper {
 		return create;
 	}
 
-	public void writeCurrentGameData(){
+	public void writeCurrentGameData(File file){
 		//Highest Score
+		if(HUD.getScore() > highestScore){
+			highestScore = HUD.getScore();
+		}
 		//Highest Wave
-		//Skin
+		if(HUD.getWave() > highestWave){
+			highestWave = HUD.getWave();
+		}
 		//Health
-		//Cursor
+		
 		//Speed
 		//Coin val
 		//Defense
+		
+
+		//Skin
+		//Cursor
 		
 	}
 }

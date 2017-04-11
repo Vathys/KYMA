@@ -21,6 +21,7 @@ public class Game extends Canvas implements Runnable {
 	public static boolean gameRun = false;
 	private Thread thread;
 	private boolean running = false;
+	public STATE gameState;
 	
 	private Random r;
 	private Handler handler;                                       //UPDATES AND RENDERS EVERY SINGLE GAME OBJECT
@@ -39,10 +40,10 @@ public class Game extends Canvas implements Runnable {
 		END,
 		GAME,
 		PAUSE,
-		REVERSEHIDE
+		REVERSEHIDE,
+		SAVE
 	};
-	
-	public STATE gameState;
+
 	
 	public Game(){
 		//AudioPlayer.load();

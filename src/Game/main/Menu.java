@@ -436,6 +436,11 @@ public class Menu extends MouseAdapter{
 			
 			g.setFont(mainMenu);
 			MU_SIZE = g.getFontMetrics(mainMenu);
+			
+			g.drawRect(Game.WIDTH/4, Game.HEIGHT * 3/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);   //SAVE
+			g.drawRect(Game.WIDTH/4 - 1, Game.HEIGHT * 3/6 - (MU_SIZE.getHeight() / 2) - 41, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);   //SAVE
+			g.drawRect(Game.WIDTH/4 - 2, Game.HEIGHT * 3/6 - (MU_SIZE.getHeight() / 2) - 42, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);   //SAVE
+			g.drawString("SAVE", Game.WIDTH/2 - MU_SIZE.stringWidth("SAVE") / 2,  Game.HEIGHT * 3/6);
 			//COSME
 			g.drawRect(Game.WIDTH/4, Game.HEIGHT * 4/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);     // SHOP
 			g.drawRect(Game.WIDTH/4 -1, Game.HEIGHT * 4/6 - (MU_SIZE.getHeight() / 2) - 41, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);  // SHOP
@@ -641,6 +646,10 @@ public class Menu extends MouseAdapter{
 			g.drawRect(Game.WIDTH/4 -1, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) +1, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);  //BACK
 			g.drawRect(Game.WIDTH/4 -2, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) +2, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);  //BACK
 			g.drawString("BACK", Game.WIDTH/2 - MU_SIZE.stringWidth("BACK") / 2,  Game.HEIGHT * 5/6 + 40);
+		}
+		
+		if(game.gameState == STATE.SAVE){
+			
 		}
 	}
 
