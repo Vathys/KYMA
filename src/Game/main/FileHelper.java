@@ -36,13 +36,11 @@ public class FileHelper {
 		return tempDir.exists();
 	}
 
-	public ArrayList<String> readFile(String FileName){
-		if(!FileExists(FileName)){
-			return null;
-		}
+	public ArrayList<String> readFile(String filename){
+		
 		ArrayList<String> create = new ArrayList <String>();
 		try{
-			fRead = new FileReader(dir + FileName);
+			fRead = new FileReader(new File(filename));
 			bRead = new BufferedReader(fRead);
 			sc = new Scanner(fRead);
 			while(sc.hasNextLine()){
@@ -59,7 +57,14 @@ public class FileHelper {
 		return create;
 	}
 
-	public void writeCurrentGameData(File file){
+	public void creatGameData(File file){
+		
+	}
+	
+	public void updateGameData(File file){
+		if(!FileExists(file.getName())){
+			return;
+		}
 		//Highest Score
 		if(HUD.getScore() > highestScore){
 			highestScore = HUD.getScore();

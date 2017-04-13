@@ -71,6 +71,8 @@ public class Menu extends MouseAdapter{
 			JU = JU.createFont(Font.TRUETYPE_FONT, new File("res/Fonts/Justo St.ttf"));
 		}
 		catch(Exception e){}
+		
+		
 		title = MU.deriveFont(Font.BOLD, 100);
 		mainMenu = MU.deriveFont(Font.PLAIN, 75);
 		pre = STATE.NULL;
@@ -259,25 +261,26 @@ public class Menu extends MouseAdapter{
 								
 								HP_CHANGE = (int)Game.clamp(HP_CHANGE + (10 * change), 0, 1000 - HUD.blueHEALTH);
 								current = ((int) (HUD.blueHEALTH)) + HP_CHANGE;
-								HP_COST = getCost(current, "Costs/Health_Cost.txt");
+								HP_COST = getCost(current, "res/Costs/Health_Cost.txt");
+							
 								
 							} else if(itt.substring(i + 1, itt.length()).equals("Speed")){
 								
 								SPEED_CHANGE = (int)Game.clamp(SPEED_CHANGE + change, 0, 20 - Player.getSpeed());
 								current = ((int) (Player.getSpeed() - 5)) + SPEED_CHANGE;
-								SPEED_COST = getCost(current, "Costs/Speed_Cost.txt");
+								SPEED_COST = getCost(current, "res/Costs/Speed_Cost.txt");
 								
 							} else if(itt.substring(i + 1, itt.length()).equals("Defense")){
 								
 								DEFENSE_CHANGE = (int)Game.clamp(DEFENSE_CHANGE + change, 0, 100 - Player.getDefense());
 								current = ((int) (Player.getDefense())) + DEFENSE_CHANGE;
-								DEFENSE_COST = getCost(current, "Costs/Defense_Cost.txt");
+								DEFENSE_COST = getCost(current, "res/Costs/Defense_Cost.txt");
 								
 							} else if(itt.substring(i + 1, itt.length()).equals("Coin")){
 								
 								COIN_CHANGE = (int)Game.clamp(COIN_CHANGE + change, 0, 5 - Player.getCoinFactor());
 								current = COIN_CHANGE;
-								COIN_COST = getCost(current, "Costs/Coin_Cost.txt");
+								COIN_COST = getCost(current, "res/Costs/Coin_Cost.txt");
 								
 							}
 						}

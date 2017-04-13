@@ -60,28 +60,17 @@ public class Game extends Canvas implements Runnable {
 		r = new Random();
 		saveData = new ArrayList<File>();
 		
-		for(int i = 0; i < 3; i++){
-			saveData.add(new File("res/SaveData/Data" + i));
-			try {
-				saveData.get(i).createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(saveData.get(i).canWrite()){
-				try {
-					FileHelper.writeFile("Let's see if this works", saveData.get(i));
-					System.out.println("excecuted");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					System.out.println("Didn't work");
-					e.printStackTrace();
-				}
-			}
-			
-			System.out.println(saveData.get(i).getName());
-			System.out.println(saveData.get(i).getPath());
-		}
+		/*
+		 * Process for creating files
+		 * 
+		 * saveData.add(new File(name));
+		 * saveData.get(index).createNewFile();
+		 * if(canWrite){
+		 * 		FileHelper.writeFile(String n, saveData.get(index));
+		 * }
+		 * 
+		 * 
+		 * */
 		
 		new Window(WIDTH, HEIGHT, "Kyma 3.0.0 (BETA)", this);
 		this.addKeyListener(new KeyInput(this, handler));
