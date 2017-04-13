@@ -4,6 +4,9 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import Enemies.EnemyBoss1;
@@ -30,6 +33,7 @@ public class Game extends Canvas implements Runnable {
 	private Spawn spawner;
 	
 	public Menu menu;
+	private ArrayList<File> saveData;
 	
 	public enum STATE{
 		NULL,
@@ -45,7 +49,7 @@ public class Game extends Canvas implements Runnable {
 	};
 
 	
-	public Game(){
+	public Game() {
 		//AudioPlayer.load();
 		//AudioPlayer.getMusic("Menu_Music").loop();
 		
@@ -54,11 +58,36 @@ public class Game extends Canvas implements Runnable {
 		spawner = new Spawn(handler, hud);
 		menu = new Menu(this, handler, hud);
 		r = new Random();
+		saveData = new ArrayList<File>();
 		
+		for(int i = 0; i < 3; i++){
+			saveData.add(new File("res/SaveData/Data" + i));
+			try {
+				saveData.get(i).createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(saveData.get(i).canWrite()){
+				try {
+					FileHelper.writeFile("Let's see if this works", saveData.get(i));
+					System.out.println("excecuted");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Didn't work");
+					e.printStackTrace();
+				}
+			}
+			
+			System.out.println(saveData.get(i).getName());
+			System.out.println(saveData.get(i).getPath());
+		}
+		
+		new Window(WIDTH, HEIGHT, "Kyma 3.0.0 (BETA)", this);
 		this.addKeyListener(new KeyInput(this, handler));
 		this.addMouseListener(menu);
 		
-		new Window(WIDTH, HEIGHT, "Kyma 3.0.0 (BETA)", this);
+		
 		gameState = STATE.MENU;
 	}
 	

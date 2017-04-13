@@ -107,8 +107,8 @@ public class Menu extends MouseAdapter{
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 2/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
 					
 					handler.clear(); // INSTA DEATH
-					hud.setScore(0);
-					hud.setWave(1);
+					HUD.setScore(0);
+					HUD.setWave(1);
 					Game.FPStrace = 0;
 					
 					game.gameState = STATE.GAME;
@@ -277,7 +277,7 @@ public class Menu extends MouseAdapter{
 								
 								COIN_CHANGE = (int)Game.clamp(COIN_CHANGE + change, 0, 5 - Player.getCoinFactor());
 								current = COIN_CHANGE;
-								COIN_COST = getCost(current, "Coins/Coin_Cost.txt");
+								COIN_COST = getCost(current, "Costs/Coin_Cost.txt");
 								
 							}
 						}

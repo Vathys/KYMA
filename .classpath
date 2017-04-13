@@ -6,7 +6,11 @@
 	<classpathentry kind="lib" path="res/Libs/jars/jinput.jar"/>
 	<classpathentry kind="lib" path="res/Libs/jars/jogg-0.0.7.jar"/>
 	<classpathentry kind="lib" path="res/Libs/jars/jorbis-0.0.15.jar"/>
-	<classpathentry kind="lib" path="res/Libs/jars/lwjgl.jar"/>
+	<classpathentry kind="lib" path="res/Libs/jars/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="KYMA/res/Libs/lwjgl/native/windows"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="res/Libs/jars/slick.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

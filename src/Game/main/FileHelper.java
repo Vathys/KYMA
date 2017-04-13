@@ -16,17 +16,13 @@ public class FileHelper {
 	protected static Scanner sc;
 	protected static FileWriter fWrite;
 	protected static BufferedWriter bWrite;
-	private String currentData;
 	private int highestScore = 0;
 	private int highestWave = 0;
 	
 	
-	public static void writeFile(String n, String FileName) throws IOException{
-		if(!FileExists(FileName)){
-			File file = new File(dir+FileName);
-			file.createNewFile();
-		}
-		fWrite = new FileWriter(new File(dir+FileName));
+	public static void writeFile(String n, File file) throws IOException{
+		
+		fWrite = new FileWriter(file);
 		bWrite = new BufferedWriter(fWrite);
 		bWrite.write(n);
 		bWrite.newLine();
