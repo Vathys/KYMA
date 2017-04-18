@@ -14,8 +14,10 @@ public class Window extends Canvas{
 
 	private static final long serialVersionUID = -1864215488270890922L;
 	
+	private JFrame frame;
+	
 	public Window(int width, int height, String title, Game game){
-		JFrame frame = new JFrame(title);                            // Create New JFrame frame
+		frame = new JFrame(title);                            // Create New JFrame frame
 		
 		Toolkit toolKit = Toolkit.getDefaultToolkit();
 	    java.awt.Image img = toolKit.getImage("res/Cursors/Cursor_White.png");
@@ -33,5 +35,9 @@ public class Window extends Canvas{
 		//frame.setCursor(cursor);
 		frame.setVisible(true);                                      // Can Actually See The Frame
 		game.start();                                                // Runs Game Start Method
-	}	
+	}
+	
+	public JFrame getFrame(){
+		return frame;
+	}
 }
