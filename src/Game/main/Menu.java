@@ -29,7 +29,7 @@ public class Menu extends MouseAdapter{
 	private Game game;
 	private Handler handler;
 	private Random r = new Random();
-	private boolean[] mouseDown = new boolean[5];
+	private boolean[] mouseDown = new boolean[6];
 	private Font MU;
 	private Font AA;
 	private Font JU;
@@ -58,7 +58,9 @@ public class Menu extends MouseAdapter{
 		mouseDown[1] = false; // When in End State
 		mouseDown[2] = false; // When in Extra
 		mouseDown[3] = false; // When in Info
-		
+		mouseDown[4] = false; // When in Shop
+		mouseDown[5] = false; // When in Save
+		 
 		try{
 			MU = MU.createFont(Font.TRUETYPE_FONT, new File("res/Fonts/Mestizos Unidos.otf"));
 		}
@@ -94,6 +96,7 @@ public class Menu extends MouseAdapter{
 		mouseDown[2] = false; // When in Extra
 		mouseDown[3] = false; // When in Info
 		mouseDown[4] = false; // When in Shop
+		mouseDown[5] = false; // When in Save
 		pre = STATE.NULL;
 		return this;
 	}
@@ -119,6 +122,7 @@ public class Menu extends MouseAdapter{
 					mouseDown[2] = false;
 					mouseDown[3] = false;
 					mouseDown[4] = false;
+					mouseDown[5] = false;
 				}	
 				
 				//INFO BUTTON
@@ -130,6 +134,7 @@ public class Menu extends MouseAdapter{
 					mouseDown[2] = false;
 					mouseDown[3] = true;
 					mouseDown[4] = false;
+					mouseDown[5] = false;
 				}
 				
 				//EXTRA BUTTON
@@ -141,6 +146,7 @@ public class Menu extends MouseAdapter{
 					mouseDown[2] = true;
 					mouseDown[3] = false;
 					mouseDown[4] = false;
+					mouseDown[5] = false;
 				}
 				
 				//EXIT BUTTON
@@ -158,13 +164,14 @@ public class Menu extends MouseAdapter{
 					mouseDown[2] = false;
 					mouseDown[3] = false;
 					mouseDown[4] = true;
+					mouseDown[5] = false;
 				}
 				//RETRY BUTTON
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 4/6 - (MU_SIZE.getHeight() / 2), Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
 					handler.clear();
 					
-					hud.setScore(0);
-					hud.setWave(1);
+					HUD.setScore(0);
+					HUD.setWave(1);
 					Game.FPStrace = 0;
 					
 					game.inGame();
@@ -175,20 +182,34 @@ public class Menu extends MouseAdapter{
 					mouseDown[2] = false;
 					mouseDown[3] = false;
 					mouseDown[4] = false;
+					mouseDown[5] = false;
 				}
 				//BACK BUTTON
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2), Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
-					game.gameOver = true;
+					Game.gameOver = true;
 					rendered = false;
 					mouseDown[0] = true;
 					mouseDown[1] = false;
 					mouseDown[2] = false;
 					mouseDown[3] = false;
 					mouseDown[4] = false;
+					mouseDown[5] = false;
 				}
 				
 				
 			} else if(mouseDown[2] == true){ // when in Extra
+				//SAVE BUTTON
+				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 3/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
+					game.gameState = STATE.SAVE;
+					
+					mouseDown[0] = false;
+					mouseDown[1] = false;
+					mouseDown[2] = false;
+					mouseDown[3] = false;
+					mouseDown[4] = false;
+					mouseDown[5] = true;
+				}
+				
 				//SHOP BUTTON
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 4/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
 					game.gameState = STATE.SHOP;
@@ -199,6 +220,7 @@ public class Menu extends MouseAdapter{
 					mouseDown[2] = false;
 					mouseDown[3] = false;
 					mouseDown[4] = true;
+					mouseDown[5] = false;
 				}
 				//BACK BUTTON
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
@@ -209,6 +231,7 @@ public class Menu extends MouseAdapter{
 					mouseDown[2] = false;
 					mouseDown[3] = false;
 					mouseDown[4] = false;
+					mouseDown[5] = false;
 				}
 			} else if(mouseDown[3] == true){ // when in Info
 				//BACK BUTTON
@@ -220,6 +243,7 @@ public class Menu extends MouseAdapter{
 					mouseDown[2] = false;
 					mouseDown[3] = false;
 					mouseDown[4] = false;
+					mouseDown[5] = false;
 				}
 			} else if(mouseDown[4] == true){ // when in Shop
 				//BACK BUTTON
@@ -232,6 +256,7 @@ public class Menu extends MouseAdapter{
 						mouseDown[2] = false;
 						mouseDown[3] = false;
 						mouseDown[4] = false;
+						mouseDown[5] = false;
 
 						pre = STATE.NULL;
 					} else if(pre == STATE.EXTRA){
@@ -242,6 +267,7 @@ public class Menu extends MouseAdapter{
 						mouseDown[2] = true;
 						mouseDown[3] = false;
 						mouseDown[4] = false;
+						mouseDown[5] = false;
 
 						pre = STATE.NULL;
 					} 
@@ -326,6 +352,17 @@ public class Menu extends MouseAdapter{
 						COIN_CHANGE = 0;
 						COIN_COST = 0;
 					}
+				}
+			}
+			else if(mouseDown[5] == true){ // When in Save
+				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
+					game.gameState = STATE.EXTRA;
+					mouseDown[0] = false;
+					mouseDown[1] = false;
+					mouseDown[2] = true;
+					mouseDown[3] = false;
+					mouseDown[4] = false;
+					mouseDown[5] = false;
 				}
 			}
 		}
@@ -652,7 +689,12 @@ public class Menu extends MouseAdapter{
 		}
 		
 		if(game.gameState == STATE.SAVE){
+			g.setFont(mainMenu);
+			MU_SIZE = g.getFontMetrics(mainMenu);
 			
+			g.setColor(Color.white);
+			g.drawRect(Game.WIDTH/4, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
+			g.drawString("BACK", Game.WIDTH/2 - MU_SIZE.stringWidth("BACK") / 2, Game.HEIGHT * 5/6);
 		}
 	}
 

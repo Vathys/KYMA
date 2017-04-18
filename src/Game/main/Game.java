@@ -148,7 +148,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 		
-		if(gameState == STATE.MENU || gameState == STATE.END || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP) {
+		if(gameState == STATE.MENU || gameState == STATE.END || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE) {
 			menu.particleHand.tick();
 			menu.tick();
 		}
@@ -180,7 +180,7 @@ public class Game extends Canvas implements Runnable {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		if(gameState == STATE.MENU || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP){
+		if(gameState == STATE.MENU || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE){
 			handler.render(g);
 			menu.render(g);
 		}
