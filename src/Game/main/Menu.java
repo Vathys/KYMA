@@ -689,10 +689,17 @@ public class Menu extends MouseAdapter{
 		}
 		
 		if(game.gameState == STATE.SAVE){
+			g.setColor(Color.white);
+			
+			Font fnt = MU.deriveFont(Font.PLAIN, 85);
+			MU_SIZE = g.getFontMetrics(fnt);
+			g.setFont(fnt);
+			
+			g.drawString("SAVE", Game.WIDTH/2 - MU_SIZE.stringWidth("SAVE") / 2, Game.HEIGHT/7);
+			
 			g.setFont(mainMenu);
 			MU_SIZE = g.getFontMetrics(mainMenu);
 			
-			g.setColor(Color.white);
 			g.drawRect(Game.WIDTH/4, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
 			g.drawString("BACK", Game.WIDTH/2 - MU_SIZE.stringWidth("BACK") / 2, Game.HEIGHT * 5/6);
 		}

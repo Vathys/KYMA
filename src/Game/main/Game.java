@@ -177,8 +177,11 @@ public class Game extends Canvas implements Runnable {
 		
 		Graphics g = bs.getDrawGraphics();
 		
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, WIDTH / 2, HEIGHT);
+		
 		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.fillRect(WIDTH / 2, 0, WIDTH / 2, HEIGHT);
 		
 		if(gameState == STATE.MENU || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE){
 			handler.render(g);
