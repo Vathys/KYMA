@@ -22,9 +22,9 @@ public class HUD{
 	public static int HPLOSS = -115;
 	
 	private boolean[] mouseDown = new boolean[2];
-	private int score = 0;
+	private static int score = 0;
 	private int savedScore;
-	private int wave = 1;
+	private static int wave = 1;
 	private Font J;
 	private Font INFO;
 	private FontMetrics J_SIZE;
@@ -96,23 +96,23 @@ public class HUD{
 	}
 	
 	
-	public void setScore(int score){                       //MUTATOR (SETTER)
-		this.score = score;
+	public static void setScore(int sc){                       //MUTATOR (SETTER)
+		score = sc;
 	}
 	
-	public int getScore(){                                 //ACCESSOR (GETTER)
+	public static int getScore(){                                 //ACCESSOR (GETTER)
 		return score;
 	}
 	
-	public void setWave(int level){                       //MUTATOR (SETTER)
-		this.wave = level;
+	public static void setWave(int level){                       //MUTATOR (SETTER)
+		wave = level;
 	}
 	
-	public int getWave(){                                 //ACCESSOR (GETTER)
+	public static int getWave(){                                 //ACCESSOR (GETTER)
 		return wave;
 	}
 	
 	public void increaseWave(){
-		this.wave += 1;
+		wave += 1;
 	}
 }

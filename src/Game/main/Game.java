@@ -4,6 +4,9 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import Enemies.EnemyBoss1;
@@ -21,6 +24,7 @@ public class Game extends Canvas implements Runnable {
 	public static boolean gameRun = false;
 	private Thread thread;
 	private boolean running = false;
+	public STATE gameState;
 	
 	private Random r;
 	private Handler handler;                                       //UPDATES AND RENDERS EVERY SINGLE GAME OBJECT
@@ -29,6 +33,7 @@ public class Game extends Canvas implements Runnable {
 	private Spawn spawner;
 	
 	public Menu menu;
+	private ArrayList<File> saveData;
 	
 	public enum STATE{
 		NULL,
@@ -39,25 +44,39 @@ public class Game extends Canvas implements Runnable {
 		END,
 		GAME,
 		PAUSE,
-		REVERSEHIDE
+		REVERSEHIDE,
+		SAVE
 	};
+
 	
-	public STATE gameState;
-	
-	public Game(){
-		AudioPlayer.load();
-		AudioPlayer.getMusic("Menu_Music").loop();
+	public Game() {
+		//AudioPlayer.load();
+		//AudioPlayer.getMusic("Menu_Music").loop();
 		
 		handler = new Handler();
 		hud = new HUD(this, handler);
 		spawner = new Spawn(handler, hud);
 		menu = new Menu(this, handler, hud);
 		r = new Random();
+		saveData = new ArrayList<File>();
 		
+		/*
+		 * Process for creating files
+		 * 
+		 * saveData.add(new File(name));
+		 * saveData.get(index).createNewFile();
+		 * if(canWrite){
+		 * 		FileHelper.writeFile(String n, saveData.get(index));
+		 * }
+		 * 
+		 * 
+		 * */
+		
+		new Window(WIDTH, HEIGHT, "Kyma 3.0.0 (BETA)", this);
 		this.addKeyListener(new KeyInput(this, handler));
 		this.addMouseListener(menu);
 		
-		new Window(WIDTH, HEIGHT, "Kyma 3.0.0 (BETA)", this);
+		
 		gameState = STATE.MENU;
 	}
 	
@@ -129,7 +148,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 		
-		if(gameState == STATE.MENU || gameState == STATE.END || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP) {
+		if(gameState == STATE.MENU || gameState == STATE.END || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE) {
 			menu.particleHand.tick();
 			menu.tick();
 		}
@@ -158,10 +177,10 @@ public class Game extends Canvas implements Runnable {
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.black);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		if(gameState == STATE.MENU || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP){
+		if(gameState == STATE.MENU || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE){
 			handler.render(g);
 			menu.render(g);
 		}
