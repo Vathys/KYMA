@@ -118,8 +118,6 @@ public class Spawn {
 				handler.addObject(new Coins(r.nextInt(Game.WIDTH - 1), r.nextInt(Game.HEIGHT - 1),ID.Coin, handler));
 				coinSpawned++;
 			}
-			
-			//
 	}
 	
 	public void wave(){

@@ -22,7 +22,7 @@ public class EnemyBoss1 extends GameObject{
 		super(x, y, id);
 		
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		i = toolkit.getImage("res/Bosses/Boss_1.png");
+		i = toolkit.getImage("res/Bosses/Boss 1.png");
 		
 		this.handler = handler;
 
@@ -68,7 +68,7 @@ public class EnemyBoss1 extends GameObject{
 
 	public void render(Graphics g){
 		
-		g.drawImage(i, (int)x, (int)y, 128, 152, null, null);
+		g.drawImage(i, (int)x, (int)y, 200, 200, null, null); //editable
 		
 		/*
 		g.setColor(Color.red);
