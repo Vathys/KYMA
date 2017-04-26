@@ -7,6 +7,7 @@ import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import Enemies.EnemyBoss1;
@@ -31,9 +32,10 @@ public class Game extends Canvas implements Runnable {
 	
 	private HUD hud;
 	private Spawn spawner;
+	private Window wind;
 	
 	public Menu menu;
-	private ArrayList<File> saveData;
+	public ArrayList<File> saveData;
 	
 	public enum STATE{
 		NULL,
@@ -59,7 +61,16 @@ public class Game extends Canvas implements Runnable {
 		menu = new Menu(this, handler, hud);
 		r = new Random();
 		saveData = new ArrayList<File>();
-		
+		int i = 0;
+		boolean t = true;
+		do{
+			if(FileHelper.FileExists("res/SaveData/Data" + i + ".txt")){
+				saveData.add(new File("res/SaveData/Data" + i + ".txt"));
+			}else{
+				t = false;
+			}
+			i++;
+		} while(t);
 		/*
 		 * Process for creating files
 		 * 
@@ -72,7 +83,7 @@ public class Game extends Canvas implements Runnable {
 		 * 
 		 * */
 		
-		new Window(WIDTH, HEIGHT, "Kyma 3.0.0 (BETA)", this);
+		wind = new Window(WIDTH, HEIGHT, "Kyma 3.0.0 (BETA)", this);
 		this.addKeyListener(new KeyInput(this, handler));
 		this.addMouseListener(menu);
 		
@@ -206,6 +217,10 @@ public class Game extends Canvas implements Runnable {
 		
 		g.dispose();
 		bs.show();
+	}
+	
+	public Window getWind(){
+		return wind;
 	}
 	
 	public static float clamp(float var, float min, float max){

@@ -10,22 +10,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHelper {
-	protected static String dir = "res/";
+	
 	protected static FileReader fRead;
 	protected static BufferedReader bRead;
 	protected static Scanner sc;
 	protected static FileWriter fWrite;
 	protected static BufferedWriter bWrite;
-	private int highestScore = 0;
-	private int highestWave = 0;
+	private static int highestScore = 0;
+	private static int highestWave = 0;
 	
 	
-	public static void writeFile(String n, File file) throws IOException{
+	public static void writeFile(ArrayList<String> n, File file) throws IOException{
 		
 		fWrite = new FileWriter(file);
 		bWrite = new BufferedWriter(fWrite);
-		bWrite.write(n);
-		bWrite.newLine();
+		
+		for(int i = 0; i < n.size(); i++){
+			bWrite.write(n.get(i));
+			bWrite.newLine();
+		}
 		
 		bWrite.close();
 		fWrite.close();
@@ -56,16 +59,16 @@ public class FileHelper {
 		}
 	}
 	
-	public static boolean FileExists(String FileName){
-		File tempDir = new File(dir+FileName);
+	public static boolean FileExists(String pathName){
+		File tempDir = new File(pathName);
 		return tempDir.exists();
 	}
 
-	public ArrayList<String> readFile(String filename){
+	public static ArrayList<String> readFile(String pathname){
 		
 		ArrayList<String> create = new ArrayList <String>();
 		try{
-			fRead = new FileReader(new File(filename));
+			fRead = new FileReader(new File(pathname));
 			bRead = new BufferedReader(fRead);
 			sc = new Scanner(fRead);
 			while(sc.hasNextLine()){
@@ -82,70 +85,54 @@ public class FileHelper {
 		return create;
 	}
 
-	public void createGameData(File file){
-		if(!FileExists(file.getName())){
+	public static void createGameData(File file, String name){
+		if(!FileExists(file.getPath())){
+			System.out.println("Does not exist");
 			return;
 		}
+		System.out.println("Does exist");
+		ArrayList<String> gameData = new ArrayList<String>();
+		
+		gameData.add("Name:" + name);
+		
+		//Highest Score
+		if(HUD.getScore() > highestScore){
+			highestScore = HUD.getScore();
+			gameData.add("Highest Score:" + highestScore);
+		}
+		//Highest Wave
+		if(HUD.getWave() > highestWave){
+			highestWave = HUD.getWave();
+			gameData.add("Highest Wave:" + highestWave);
+		}
+		//Health
+		gameData.add("Health Upgrade:" + HUD.blueHEALTH);
+		//Speed
+		gameData.add("Speed Upgrade:" + Player.getSpeed());
+		//Coin val
+		gameData.add("Coin Upgrade:" + Player.getCoinFactor());
+		//Defense
+		gameData.add("Defense Upgrade:" + Player.getDefense());
+		
+		gameData.add("Coins:" + Menu.getCurrency());
+		//Skin
+		//Cursor
+		
 		if(file.canWrite()){
 			
-			//Highest Score
-			if(HUD.getScore() > highestScore){
-				highestScore = HUD.getScore();
-				try {
-					FileHelper.writeFile("Highest Score:" + highestScore, file);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			//Highest Wave
-			if(HUD.getWave() > highestWave){
-				highestWave = HUD.getWave();
-				try {
-					FileHelper.writeFile("Highest Wave:" + highestWave, file);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			//Health
 			try {
-				FileHelper.writeFile("Health Upgrade:" + HUD.blueHEALTH, file);
+				FileHelper.writeFile(gameData, file);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//Speed
-			try {
-				FileHelper.writeFile("Speed Upgrade:" + Player.getSpeed(), file);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//Coin val
-			try {
-				FileHelper.writeFile("Coin Upgrade:" + Player.getCoinFactor(), file);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//Defense
-			try {
-				FileHelper.writeFile("Defense Upgrade:" + Player.getDefense(), file);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	
-			//Skin
-			//Cursor
 			
 		}
 	}
 	
-	public void updateGameData(File file) throws IOException{
+	public static void updateGameData(File file) throws IOException{
 		final char separator = ':';
-		if(!FileExists(file.getName())){
+		if(!FileExists(file.getPath())){
 			return;
 		}
 		if(file.canWrite()){
@@ -169,6 +156,7 @@ public class FileHelper {
 			//Defense
 			FileHelper.replaceString("" + Player.getDefense(), separator, "Defense Upgrade", file);
 	
+			FileHelper.replaceString("" + Menu.getCurrency(), separator, "Coins", file);
 			//Skin
 			//Cursor
 			

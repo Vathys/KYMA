@@ -1,22 +1,25 @@
 package Game.main;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Toolkit;
-import java.awt.image.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import Game.main.Game.STATE;
 import Enemies.BasicEnemy;
@@ -24,7 +27,7 @@ import Enemies.Coins;
 import Enemies.GameObject;
 import Enemies.ParticleEffect;
 
-public class Menu extends MouseAdapter{
+public class Menu extends MouseAdapter implements ActionListener, ListSelectionListener{
 
 	private Game game;
 	private Handler handler;
@@ -47,12 +50,18 @@ public class Menu extends MouseAdapter{
 	private HUD hud;
 	private int HP_CHANGE = 0, SPEED_CHANGE = 0, DEFENSE_CHANGE = 0, COIN_CHANGE = 0;
 	private int HP_COST = 0, SPEED_COST = 0, DEFENSE_COST = 0, COIN_COST = 0;
+	private JTextField textField;
+	private JFrame save = new JFrame();
+	private JList list = new JList();
 	public FileHelper f = new FileHelper();
 	
 	public Menu(Game game, Handler handler, HUD hud){
 		this.game = game;
 		this.handler = handler;
 		this.hud = hud;
+		
+		textField = new JTextField(20);
+		save = new JFrame();
 		
 		mouseDown[0] = true; // When in Menu
 		mouseDown[1] = false; // When in End State
@@ -355,6 +364,46 @@ public class Menu extends MouseAdapter{
 				}
 			}
 			else if(mouseDown[5] == true){ // When in Save
+				
+				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 3/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
+					JPanel panel = new JPanel(new BorderLayout());
+					
+					DefaultListModel<String> listModel = new DefaultListModel<String>();
+					for(int i = 0; i < game.saveData.size(); i++){
+						listModel.addElement(FileHelper.readFile(game.saveData.get(0).getPath()).get(0));
+					}
+					
+					list = new JList<String>(listModel);
+					list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					list.setSelectedIndex(0);
+					list.addListSelectionListener(this);
+					
+					JButton update = new JButton();
+					
+					
+					JScrollPane listScrollPane = new JScrollPane(list);
+					
+					
+				}
+				
+				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 4/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
+					game.saveData.add(new File("res/SaveData/Data" + game.saveData.size() + ".txt"));
+					
+					save.setPreferredSize(new Dimension(20, 60));
+					save.setMinimumSize(new Dimension(20, 60));
+					save.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
+					save.setResizable(true);
+					save.setLocationRelativeTo(null);
+					save.add(textField);
+					
+					textField.setEditable(true);
+					textField.setActionCommand("Save new");
+					textField.addActionListener(this);
+					
+					textField.setVisible(true);
+					save.setVisible(true);
+				}
+				
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
 					game.gameState = STATE.EXTRA;
 					mouseDown[0] = false;
@@ -368,7 +417,33 @@ public class Menu extends MouseAdapter{
 		}
 	}
 	
-	public void mouseReleased(MouseEvent e){
+	public void actionPerformed(ActionEvent e){
+		
+		if(e.getActionCommand().equals("Save new")){
+			String text = textField.getText();
+			
+			if(!game.saveData.get(game.saveData.size() - 1).exists()){
+				try {
+					game.saveData.get(game.saveData.size() - 1).createNewFile();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+			FileHelper.createGameData(game.saveData.get(game.saveData.size() - 1), text);
+			
+			textField.setEditable(false);
+			save.setVisible(false);
+			game.requestFocus();
+		}
+		else if(e.getActionCommand().equals("update")){
+			
+		}
+	}
+	
+	public void valueChanged(ListSelectionEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 	
@@ -700,7 +775,20 @@ public class Menu extends MouseAdapter{
 			g.setFont(mainMenu);
 			MU_SIZE = g.getFontMetrics(mainMenu);
 			
+			g.drawRect(Game.WIDTH/4, Game.HEIGHT * 3/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
+			g.drawRect(Game.WIDTH/4 - 1, Game.HEIGHT * 3/6 - (MU_SIZE.getHeight() / 2) - 41, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
+			g.drawRect(Game.WIDTH/4 - 2, Game.HEIGHT * 3/6 - (MU_SIZE.getHeight() / 2) - 42, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
+			g.drawString("UPDATE SAVE", Game.WIDTH/2 - MU_SIZE.stringWidth("UPDATE SAVE") / 2, Game.HEIGHT * 3/6);
+			
+			
+			g.drawRect(Game.WIDTH/4, Game.HEIGHT * 4/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
+			g.drawRect(Game.WIDTH/4 - 1, Game.HEIGHT * 4/6 - (MU_SIZE.getHeight() / 2) - 41, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
+			g.drawRect(Game.WIDTH/4 - 2, Game.HEIGHT * 4/6 - (MU_SIZE.getHeight() / 2) - 42, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
+			g.drawString("SAVE NEW", Game.WIDTH/2 - MU_SIZE.stringWidth("SAVE NEW") / 2, Game.HEIGHT * 4/6);
+			
 			g.drawRect(Game.WIDTH/4, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
+			g.drawRect(Game.WIDTH/4 - 1, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) - 41, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
+			g.drawRect(Game.WIDTH/4 - 2, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) - 42, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
 			g.drawString("BACK", Game.WIDTH/2 - MU_SIZE.stringWidth("BACK") / 2, Game.HEIGHT * 5/6);
 		}
 	}
@@ -727,4 +815,6 @@ public class Menu extends MouseAdapter{
 		}
 		return Integer.MIN_VALUE;
 	}
+
+
 }
