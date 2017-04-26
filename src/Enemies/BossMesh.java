@@ -63,7 +63,7 @@ public class BossMesh extends GameObject{
 
 	public void render(Graphics g){
 		
-		g.drawPolygon(collisionMesh);
+		//g.drawPolygon(collisionMesh);
 		
 	}
 
