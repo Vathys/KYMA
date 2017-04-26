@@ -2,9 +2,13 @@ package Game.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.Random;
 
+import Enemies.BossMesh;
+import Enemies.EnemyBoss1;
 import Enemies.GameObject;
 import Enemies.ID;
 import Enemies.Spawn;
@@ -57,6 +61,7 @@ public class Player extends GameObject{
 					else HUD.greenHEALTH += HUD.HPLOSS + defense;
 				}
 			}
+			
 			if(tempObject.getID() == ID.Coin){
 				if(getBounds().intersects(tempObject.getBounds())){
 					handler.removeObject(tempObject);

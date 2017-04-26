@@ -1,6 +1,7 @@
 package Enemies;
 
 import java.awt.Graphics;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 
 public abstract class GameObject {

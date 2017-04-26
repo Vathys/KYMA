@@ -3,6 +3,8 @@ package Enemies;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.Random;
@@ -18,6 +20,8 @@ public class EnemyBoss1 extends GameObject{
 	private int timer = 175;
 	private int timer2 = 30;
 	
+	BossMesh mesh;
+	
 	public EnemyBoss1(float x, float y, ID id, Handler handler){
 		super(x, y, id);
 		
@@ -31,6 +35,8 @@ public class EnemyBoss1 extends GameObject{
 		
 		vel[0] = velX;
 		vel[1] = velY;
+		
+		mesh = new BossMesh(x, y, ID.Boss, 3, 200, handler);
 	}
 	
 	public Rectangle getBounds(){
@@ -41,25 +47,30 @@ public class EnemyBoss1 extends GameObject{
 		x += velX;
 		y += velY;
 		
+		mesh.x += velX;
+		mesh.y += velY;
+		
+		mesh.tick();
+		
 		if(timer <= 0) velY = 0;
 		else timer--;
 		
 		if(timer <= 0 )timer2--;
 		
 		if(timer2 <= 0){
-			if(velX == 0) velX = -4;
+		if(velX == 0) velX = -4;
 			
-			if(velX < 0) velX -= 0.006f;
-			else if(velX > 0) velX += 0.006f;
+		if(velX < 0) velX -= 0.006f;
+		else if(velX > 0) velX += 0.006f;
 			
-			velX = Game.clamp(velX, -15, 15);
+		velX = Game.clamp(velX, -15, 15);
 			
-			int spawn = r.nextInt(7);
-			if(spawn == 0) handler.addObject(new BasicBullet(x + 64, y + 154, ID.Enemy, Color.red, handler));
-			}
+		int spawn = r.nextInt(7);
+		if(spawn == 0) handler.addObject(new BasicBullet(x + 64, y + 200, ID.Enemy, Color.GREEN, handler));
+		}
 			
-		//if(y <= 0 || y >= Game.HEIGHT - 42) velY *= -1;
-		if(x <= 0 || x >= Game.WIDTH - 102) velX *= -1;
+		//if(y <= 0 || y >= Game.HEIGHT - 42) velY *= -1; //NO BACK
+		if(x <= 0 || x >= Game.WIDTH - 207) velX *= -1;
 		
 
 		vel[0] = velX;
@@ -70,22 +81,8 @@ public class EnemyBoss1 extends GameObject{
 		
 		g.drawImage(i, (int)x, (int)y, 200, 200, null, null); //editable
 		
-		/*
-		g.setColor(Color.red);
-		g.fillRect((int)x, (int)y, 96, 96);
-		
-		g.setColor(Color.white);
-		g.drawRect((int)x, (int)y, 96, 96);
-		
-		g.setColor(Color.red);
-		g.fillRect((int)x + 32, (int)y + 74, 30, 40);
-		
-		g.setColor(Color.white);
-		g.drawRect((int)x + 32, (int)y + 74, 30, 40);
-		
-		g.setColor(Color.red);
-		g.fillRect((int)x + 35, (int)y + 74, 25, 40);
-		*/
+		g.setColor(Color.green);
+		mesh.render(g);	
 	}
 
 	public void hide(Graphics g) {
@@ -104,5 +101,4 @@ public class EnemyBoss1 extends GameObject{
 		velX = vel[0];
 		velY = vel[1];
 	}
-	//handler.addObject(new EnemyBoss1(Game.WIDTH / 2 + 38, -155, ID.Enemy, handler));
 }

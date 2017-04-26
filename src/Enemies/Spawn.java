@@ -51,52 +51,46 @@ public class Spawn {
 			}
 			if(scoreKeep == 500){
 				hud.setWave(2);
-				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 46), ID.Enemy, Color.yellow, handler));                                  //BasicEnemy
+				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 46), ID.Enemy, Color.yellow, handler));
 			}
-			
 			if(scoreKeep == 1000){
 				hud.setWave(3);
-				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 50), ID.Enemy, Color.magenta, handler));                                 //BasicEnemy
+				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 50), ID.Enemy, Color.magenta, handler));
 			}
-			
 			if(scoreKeep == 1500){
 				hud.setWave(4);
-				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 55), ID.Enemy, Color.pink, handler));                                    //BasicEnemy
+				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 55), ID.Enemy, Color.pink, handler));
 			}
-			
 			if(scoreKeep == 2000){
 				hud.setWave(5);
-				handler.addObject(new LeftRigthEnemy(r.nextInt(Game.WIDTH - 22), Game.HEIGHT - 44, ID.Enemy, Color.orange, handler));                                     //LeftRightEnemy (BOTTOM)
-				handler.addObject(new LeftRigthEnemy(r.nextInt(Game.WIDTH - 22), 0, ID.Enemy, Color.orange, handler));                                                    //LeftRightEnemy (TOP)
+				handler.addObject(new LeftRigthEnemy(r.nextInt(Game.WIDTH - 22), Game.HEIGHT - 44, ID.Enemy, Color.orange, handler));
+				handler.addObject(new LeftRigthEnemy(r.nextInt(Game.WIDTH - 22), 0, ID.Enemy, Color.orange, handler));
 			}
-			
 			if(scoreKeep == 2500){
 				hud.setWave(6);
-				handler.addObject(new UpDownEnemy(0, r.nextInt(Game.HEIGHT - 45), ID.Enemy, Color.orange, handler));                                                         //UpDownEnemy (LEFT)
-				handler.addObject(new UpDownEnemy(Game.WIDTH - 22, r.nextInt(Game.HEIGHT - 45), ID.Enemy, Color.orange,  handler));                                          //UpDownEnemy (Right)
+				handler.addObject(new UpDownEnemy(0, r.nextInt(Game.HEIGHT - 45), ID.Enemy, Color.orange, handler));                                                         
+				handler.addObject(new UpDownEnemy(Game.WIDTH - 22, r.nextInt(Game.HEIGHT - 45), ID.Enemy, Color.orange,  handler));
 			}
-			
 			if(scoreKeep == 3000){
 				hud.setWave(7); 
-				handler.addObject(new VerticallyFastEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.cyan, handler));                  //VerticallyFastEnemy
+				handler.addObject(new VerticallyFastEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.cyan, handler));
 			}
-				
 			if(scoreKeep == 3500){
 				hud.setWave(8);  
-				handler.addObject(new HorizontallyFastEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.green, handler));             //HorizontallyFastEnemy
+				handler.addObject(new HorizontallyFastEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.green, handler));	
 			}
-				
 			if(scoreKeep == 4000){
 				hud.setWave(9);   
-				handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.lightGray, handler));                               //SmartEnemy
+				handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.lightGray, handler));
 			}
-			
 			if(scoreKeep == 4500){
 				hud.setWave(10);  
 				handler.clearEnemies();
-				handler.addObject(new EnemyBoss1(Game.WIDTH / 2 + 38, -155, ID.Enemy, handler));                                                                              //EnemyBoss1
+				
+				handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
+				
+				handler.addObject(new EnemyBoss1(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
 			}
-			
 			if(scoreKeep == 6000){
 				hud.setWave(11);
 				handler.clearEnemies();
@@ -109,11 +103,9 @@ public class Spawn {
 					}
 				}
 			}
-			
 			if(scoreKeep >= 7000 && scoreKeep % 1000 == 0){
 				wave();
 			}
-			
 			if(randomSpawn(20) && randomSpawn(10) && coinSpawned < 10){
 				handler.addObject(new Coins(r.nextInt(Game.WIDTH - 1), r.nextInt(Game.HEIGHT - 1),ID.Coin, handler));
 				coinSpawned++;
