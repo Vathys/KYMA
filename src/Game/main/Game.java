@@ -33,6 +33,7 @@ public class Game extends Canvas implements Runnable {
 	private HUD hud;
 	private Spawn spawner;
 	private Window wind;
+	private KeyInput keyInput;
 	
 	public Menu menu;
 	public ArrayList<File> saveData;
@@ -82,11 +83,10 @@ public class Game extends Canvas implements Runnable {
 		 * 
 		 * 
 		 * */
-		
+		keyInput = new KeyInput(this, handler);
 		wind = new Window(WIDTH, HEIGHT, "Kyma 3.0.0 (BETA)", this);
-		this.addKeyListener(new KeyInput(this, handler));
+		this.addKeyListener(keyInput);
 		this.addMouseListener(menu);
-		
 		
 		gameState = STATE.MENU;
 	}

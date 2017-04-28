@@ -43,7 +43,6 @@ public class KeyInput extends KeyAdapter{
 					if(CheatCode.checkCode(key) && cheatCodeActive == false){
 						HUD.HPLOSS *= -1;
 						cheatCodeActive = true;
-						System.out.println("Reached");
 					}
 					if(CheatCode.exit(key) && cheatCodeActive == true) {
 						HUD.HPLOSS *= -1;
@@ -79,7 +78,6 @@ public class KeyInput extends KeyAdapter{
 		}else if(game.gameState == STATE.SHOP){
 			if(CheatCode.checkCode(key) && cheatCodeActive == false){
 				cheatCodeActive = true;
-				System.out.println("Shop CheatCode reached");
 			}
 			if(cheatCodeActive == true && !CheatCode.exit(key)){
 				if(CheatCode.numbers(key) > 0){
