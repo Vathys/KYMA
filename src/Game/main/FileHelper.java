@@ -41,6 +41,7 @@ public class FileHelper {
 		
 		while(sc.hasNextLine()){
 			String line = sc.nextLine();
+			System.out.println(line);
 			if(line.substring(0, line.indexOf(separator)).equals(section)){
 				return line.substring(line.indexOf(separator) + 1);
 			}
@@ -124,6 +125,8 @@ public class FileHelper {
 			return;
 		}
 		ArrayList<String> gameData = new ArrayList<String>();
+		
+		gameData.add(getAttribute("Name", ':', file));
 		
 		//Highest Score
 		if(HUD.getScore() > highestScore){

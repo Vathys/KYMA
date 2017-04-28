@@ -445,10 +445,10 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					save.add(panel);
 					save.pack();
 					
-					save.setSize(new Dimension(200, 50));
+					save.setPreferredSize(new Dimension(200, 50));
 					save.setMaximumSize(new Dimension(300, 50));
 					save.setMinimumSize(new Dimension(100, 50));
-					//save.setResizable(true);
+					save.setResizable(false);
 					save.setLocationRelativeTo(null);
 					save.setVisible(true);
 				}
@@ -495,7 +495,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 				try {
 					name = new String(FileHelper.getAttribute("Name", separator, game.saveData.get(i)));
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
