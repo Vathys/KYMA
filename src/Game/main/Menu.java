@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,11 +52,13 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 	private int HP_CHANGE = 0, SPEED_CHANGE = 0, DEFENSE_CHANGE = 0, COIN_CHANGE = 0;
 	private int HP_COST = 0, SPEED_COST = 0, DEFENSE_COST = 0, COIN_COST = 0;
 	private JTextField textField;
-	private JFrame save = new JFrame();
-	private JList list = new JList();
+	private JFrame save;
+	private JList<String> list = new JList<String>();
+	private DefaultListModel<String> listModel;
+	private JButton update;
 	public FileHelper f = new FileHelper();
 	
-	public Menu(Game game, Handler handler, HUD hud){
+ 	public Menu(Game game, Handler handler, HUD hud){
 		this.game = game;
 		this.handler = handler;
 		this.hud = hud;
@@ -120,10 +123,17 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 				//PLAY BUTTON
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 2/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
 					
+					if(Game.gameOver){
+						game.inGame();
+						game.gameState = STATE.MENU;
+						Game.gameOver = false;
+					}
+					
 					handler.clear(); // INSTA DEATH
 					HUD.setScore(0);
 					HUD.setWave(1);
 					Game.FPStrace = 0;
+					
 					
 					game.gameState = STATE.GAME;
 					mouseDown[0] = false;
@@ -195,6 +205,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 				}
 				//BACK BUTTON
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2), Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
+					game.gameState = STATE.MENU;
 					Game.gameOver = true;
 					rendered = false;
 					mouseDown[0] = true;
@@ -368,30 +379,59 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 3/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
 					JPanel panel = new JPanel(new BorderLayout());
 					
-					DefaultListModel<String> listModel = new DefaultListModel<String>();
+					listModel = new DefaultListModel<String>();
 					for(int i = 0; i < game.saveData.size(); i++){
-						listModel.addElement(FileHelper.readFile(game.saveData.get(0).getPath()).get(0));
+						
+						try {
+							listModel.addElement(FileHelper.getAttribute("Name", ':', game.saveData.get(i)));
+						} catch (FileNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 					
 					list = new JList<String>(listModel);
 					list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					list.setSelectedIndex(0);
 					list.addListSelectionListener(this);
-					
-					JButton update = new JButton();
-					
-					
+					list.setVisibleRowCount(5);
 					JScrollPane listScrollPane = new JScrollPane(list);
 					
+					listScrollPane.setVisible(true);
+					update = new JButton("Update");
+					update.setActionCommand("update");
+					update.addActionListener(this);
 					
+					JPanel buttonPane = new JPanel();
+					buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+					buttonPane.add(update);
+					buttonPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+					
+					panel.add(listScrollPane, BorderLayout.CENTER);
+					panel.add(buttonPane, BorderLayout.SOUTH);
+					
+					panel.setOpaque(true);
+					save = new JFrame("Update Saved Data");
+					
+					save.setPreferredSize(new Dimension(500, 400));
+					save.setMinimumSize(new Dimension(200, 150));
+					save.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
+					save.setResizable(true);
+					save.setLocationRelativeTo(null);
+					
+					save.setContentPane(panel);
+					save.pack();
+					save.setVisible(true);
 				}
 				
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 4/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
 					game.saveData.add(new File("res/SaveData/Data" + game.saveData.size() + ".txt"));
 					
-					save.setPreferredSize(new Dimension(20, 60));
-					save.setMinimumSize(new Dimension(20, 60));
-					save.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
+					save = new JFrame("Save");
+					
+					save.setPreferredSize(new Dimension(200, 40));
+					save.setMinimumSize(new Dimension(100, 40));
+					save.setMaximumSize(new Dimension(Game.WIDTH, 40));
 					save.setResizable(true);
 					save.setLocationRelativeTo(null);
 					save.add(textField);
@@ -401,6 +441,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					textField.addActionListener(this);
 					
 					textField.setVisible(true);
+					save.pack();
 					save.setVisible(true);
 				}
 				
@@ -426,7 +467,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 				try {
 					game.saveData.get(game.saveData.size() - 1).createNewFile();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -438,13 +478,40 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 			game.requestFocus();
 		}
 		else if(e.getActionCommand().equals("update")){
+			int index = list.getSelectedIndex();
 			
+			String name = new String();
+			
+			final char separator = ':';
+			for(int i = 0; i < game.saveData.size(); i++){
+				try {
+					name = new String(FileHelper.getAttribute("Name", separator, game.saveData.get(i)));
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				if(name.equals(listModel.get(index))){
+					try {
+						FileHelper.updateGameData(game.saveData.get(i));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
 		}
 	}
 	
 	public void valueChanged(ListSelectionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		if(arg0.getValueIsAdjusting() == false){
+			if(list.getSelectedIndex() == -1){
+				update.setEnabled(false);
+			}
+			else{
+				update.setEnabled(true);
+			}
+		}
 	}
 	
 	private boolean mouseOver(int mx, int my, int x, int y, int width, int height){
@@ -816,5 +883,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 		return Integer.MIN_VALUE;
 	}
 
+	
 
 }

@@ -3,6 +3,7 @@ package Game.main;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -35,28 +36,39 @@ public class FileHelper {
 	}
 	
 	public static void replaceString(String n, char separator, String section, File file) throws IOException{
-		fWrite = new FileWriter(file);
-		bWrite = new BufferedWriter(fWrite);
 		fRead = new FileReader(file);
 		sc = new Scanner(fRead);
 		
-		if(file.canWrite()){
-			while(sc.hasNextLine()){
-				String line = sc.nextLine();
-				if(line.substring(0, line.indexOf(separator)) == section){
-					bWrite.write(line.substring(0, line.indexOf(separator) + 1) + n);
-					bWrite.newLine();
-				}
-				else{
-					bWrite.write(sc.nextLine());
-					bWrite.newLine();
-				}
-				bWrite.close();
-				fWrite.close();
-				sc.close();
-				fRead.close();
+		ArrayList<String> replacement = new ArrayList<String>();
+		
+		while(sc.hasNextLine()){
+			String line = sc.nextLine();
+			if(line.substring(0, line.indexOf(separator)) == section){
+				replacement.add(line.substring(0, line.indexOf(separator) + 1) + n);
+			}
+			else{
+				replacement.add(line);
 			}
 		}
+		
+		sc.close();
+		fRead.close();
+		
+		writeFile(replacement, file);
+		System.out.println("This code is reached");
+	}
+	
+	public static String getAttribute(String section, char separator, File file) throws FileNotFoundException{
+		fRead = new FileReader(file);
+		sc = new Scanner(fRead);
+		
+		while(sc.hasNextLine()){
+			String line = sc.nextLine();
+			if(line.substring(0, line.indexOf(separator)).equals(section)){
+				return line.substring(line.indexOf(separator) + 1);
+			}
+		}
+		return "Section not found";
 	}
 	
 	public static boolean FileExists(String pathName){
@@ -98,13 +110,13 @@ public class FileHelper {
 		//Highest Score
 		if(HUD.getScore() > highestScore){
 			highestScore = HUD.getScore();
-			gameData.add("Highest Score:" + highestScore);
 		}
+		gameData.add("Highest Score:" + highestScore);
 		//Highest Wave
 		if(HUD.getWave() > highestWave){
 			highestWave = HUD.getWave();
-			gameData.add("Highest Wave:" + highestWave);
 		}
+		gameData.add("Highest Wave:" + highestWave);
 		//Health
 		gameData.add("Health Upgrade:" + HUD.blueHEALTH);
 		//Speed
@@ -123,7 +135,6 @@ public class FileHelper {
 			try {
 				FileHelper.writeFile(gameData, file);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -140,13 +151,13 @@ public class FileHelper {
 			//Highest Score
 			if(HUD.getScore() > highestScore){
 				highestScore = HUD.getScore();
-				FileHelper.replaceString("" + highestScore, separator, "Highest Score", file);
 			}
+			FileHelper.replaceString("" + highestScore, separator, "Highest Score", file);
 			//Highest Wave
 			if(HUD.getWave() > highestWave){
 				highestWave = HUD.getWave();
-				FileHelper.replaceString("" + highestWave, separator, "Highest Wave", file);
 			}
+			FileHelper.replaceString("" + highestWave, separator, "Highest Wave", file);
 			//Health
 			FileHelper.replaceString("" + HUD.blueHEALTH, separator, "Health Upgrade", file);
 			//Speed

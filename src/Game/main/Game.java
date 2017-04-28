@@ -150,15 +150,6 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void tick(){
-		
-		if(gameState == STATE.END){
-			if(gameOver){
-				inGame();
-				gameState = STATE.MENU;
-				gameOver = false;
-			}
-		}
-		
 		if(gameState == STATE.MENU || gameState == STATE.END || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE) {
 			menu.particleHand.tick();
 			menu.tick();
