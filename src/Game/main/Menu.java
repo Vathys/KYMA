@@ -416,7 +416,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					save.setPreferredSize(new Dimension(500, 400));
 					save.setMinimumSize(new Dimension(200, 150));
 					save.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
-					save.setResizable(true);
+					save.setResizable(false);
 					save.setLocationRelativeTo(null);
 					
 					save.setContentPane(panel);
@@ -429,19 +429,27 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					
 					save = new JFrame("Save");
 					
-					save.setPreferredSize(new Dimension(200, 40));
-					save.setMinimumSize(new Dimension(100, 40));
-					save.setMaximumSize(new Dimension(Game.WIDTH, 40));
-					save.setResizable(true);
-					save.setLocationRelativeTo(null);
-					save.add(textField);
-					
 					textField.setEditable(true);
 					textField.setActionCommand("Save new");
 					textField.addActionListener(this);
 					
-					textField.setVisible(true);
+					JLabel dir = new JLabel("Enter name: ", JLabel.LEFT);
+					
+					JPanel panel = new JPanel();
+					panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
+					panel.add(dir);
+					panel.add(Box.createHorizontalGlue());
+					panel.add(textField);
+					
+					
+					save.add(panel);
 					save.pack();
+					
+					save.setSize(new Dimension(200, 50));
+					save.setMaximumSize(new Dimension(300, 50));
+					save.setMinimumSize(new Dimension(100, 50));
+					//save.setResizable(true);
+					save.setLocationRelativeTo(null);
 					save.setVisible(true);
 				}
 				

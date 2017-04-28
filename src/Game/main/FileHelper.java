@@ -35,29 +35,6 @@ public class FileHelper {
 		fWrite.close();
 	}
 	
-	public static void replaceString(String n, char separator, String section, File file) throws IOException{
-		fRead = new FileReader(file);
-		sc = new Scanner(fRead);
-		
-		ArrayList<String> replacement = new ArrayList<String>();
-		
-		while(sc.hasNextLine()){
-			String line = sc.nextLine();
-			if(line.substring(0, line.indexOf(separator)) == section){
-				replacement.add(line.substring(0, line.indexOf(separator) + 1) + n);
-			}
-			else{
-				replacement.add(line);
-			}
-		}
-		
-		sc.close();
-		fRead.close();
-		
-		writeFile(replacement, file);
-		System.out.println("This code is reached");
-	}
-	
 	public static String getAttribute(String section, char separator, File file) throws FileNotFoundException{
 		fRead = new FileReader(file);
 		sc = new Scanner(fRead);
@@ -146,33 +123,39 @@ public class FileHelper {
 		if(!FileExists(file.getPath())){
 			return;
 		}
+		ArrayList<String> gameData = new ArrayList<String>();
+		
+		//Highest Score
+		if(HUD.getScore() > highestScore){
+			highestScore = HUD.getScore();
+		}
+		gameData.add("Highest Score:" + highestScore);
+		//Highest Wave
+		if(HUD.getWave() > highestWave){
+			highestWave = HUD.getWave();
+		}
+		gameData.add("Highest Wave:" + highestWave);
+		//Health
+		gameData.add("Health Upgrade:" + HUD.blueHEALTH);
+		//Speed
+		gameData.add("Speed Upgrade:" + Player.getSpeed());
+		//Coin val
+		gameData.add("Coin Upgrade:" + Player.getCoinFactor());
+		//Defense
+		gameData.add("Defense Upgrade:" + Player.getDefense());
+		
+		gameData.add("Coins:" + Menu.getCurrency());
+		//Skin
+		//Cursor
+		
 		if(file.canWrite()){
 			
-			//Highest Score
-			if(HUD.getScore() > highestScore){
-				highestScore = HUD.getScore();
+			try {
+				FileHelper.writeFile(gameData, file);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			FileHelper.replaceString("" + highestScore, separator, "Highest Score", file);
-			//Highest Wave
-			if(HUD.getWave() > highestWave){
-				highestWave = HUD.getWave();
-			}
-			FileHelper.replaceString("" + highestWave, separator, "Highest Wave", file);
-			//Health
-			FileHelper.replaceString("" + HUD.blueHEALTH, separator, "Health Upgrade", file);
-			//Speed
-			FileHelper.replaceString("" + Player.getSpeed(), separator, "Speed Upgrade", file);
-			//Coin val
-			FileHelper.replaceString("" + Player.getCoinFactor(), separator, "Coin Upgrade", file);
-			//Defense
-			FileHelper.replaceString("" + Player.getDefense(), separator, "Defense Upgrade", file);
-	
-			FileHelper.replaceString("" + Menu.getCurrency(), separator, "Coins", file);
-			//Skin
-			//Cursor
 			
 		}
-		
-		
 	}
 }
