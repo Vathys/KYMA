@@ -85,7 +85,7 @@ public class HUD{
 		g.setColor(Color.white);
 		g.drawRect(15, 15, 300, 32);
 		
-		INFO = J.deriveFont(Font.BOLD, 10);
+		INFO = J.deriveFont(Font.BOLD, 12);
 
 		J_SIZE = g.getFontMetrics(J);
 		

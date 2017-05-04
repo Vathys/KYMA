@@ -88,10 +88,9 @@ public class Spawn {
 				handler.clearEnemies();
 				
 				handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
-				
 				handler.addObject(new EnemyBoss1(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
 			}
-			if(scoreKeep == 6000){
+			if(scoreKeep == 5200){
 				hud.setWave(11);
 				handler.clearEnemies();
 				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH + 20), r.nextInt(Game.HEIGHT + 46), ID.Enemy, Color.red, handler));
@@ -103,11 +102,18 @@ public class Spawn {
 					}
 				}
 			}
-			if(scoreKeep >= 7000 && scoreKeep % 1000 == 0){
+			if(scoreKeep >= 5700 && scoreKeep < 9700 && scoreKeep % 500 == 200){
 				wave();
 			}
+			if(scoreKeep == 9700){
+				hud.setWave(20);  
+				handler.clearEnemies();
+				
+				handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
+				handler.addObject(new EnemyBoss2(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
+			}
 			if(randomSpawn(20) && randomSpawn(10) && coinSpawned < 10){
-				handler.addObject(new Coins(r.nextInt(Game.WIDTH - 1), r.nextInt(Game.HEIGHT - 1),ID.Coin, handler));
+				handler.addObject(new Coins(r.nextInt(Game.WIDTH - 	41), r.nextInt(Game.HEIGHT - 41),ID.Coin, handler));
 				coinSpawned++;
 			}
 	}
@@ -129,6 +135,7 @@ public class Spawn {
 		case 5:
 			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - (r.nextInt(45))), r.nextInt(Game.HEIGHT - (r.nextInt(42))), ID.Enemy, rand0mColor(), handler));
 		}
+		
 	}
 	public Color rand0mColor(){
 		switch(r.nextInt(8)){
