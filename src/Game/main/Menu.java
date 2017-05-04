@@ -33,7 +33,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 	private Game game;
 	private Handler handler;
 	private Random r = new Random();
-	private boolean[] mouseDown = new boolean[6];
+	private boolean[] mouseDown = new boolean[7];
 	private Font MU;
 	private Font AA;
 	private Font JU;
@@ -66,12 +66,13 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 		textField = new JTextField(20);
 		save = new JFrame();
 		
-		mouseDown[0] = true; // When in Menu
+		mouseDown[0] = true;  // When in Menu
 		mouseDown[1] = false; // When in End State
 		mouseDown[2] = false; // When in Extra
 		mouseDown[3] = false; // When in Info
 		mouseDown[4] = false; // When in Shop
 		mouseDown[5] = false; // When in Save
+		mouseDown[6] = false; // When in Load
 		 
 		try{
 			MU = MU.createFont(Font.TRUETYPE_FONT, new File("res/Fonts/Mestizos Unidos.otf"));
@@ -142,6 +143,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[3] = false;
 					mouseDown[4] = false;
 					mouseDown[5] = false;
+					mouseDown[6] = false;
 				}	
 				
 				//INFO BUTTON
@@ -154,6 +156,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[3] = true;
 					mouseDown[4] = false;
 					mouseDown[5] = false;
+					mouseDown[6] = false;
 				}
 				
 				//EXTRA BUTTON
@@ -166,6 +169,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[3] = false;
 					mouseDown[4] = false;
 					mouseDown[5] = false;
+					mouseDown[6] = false;
 				}
 				
 				//EXIT BUTTON
@@ -184,6 +188,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[3] = false;
 					mouseDown[4] = true;
 					mouseDown[5] = false;
+					mouseDown[6] = false;
 				}
 				//RETRY BUTTON
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 4/6 - (MU_SIZE.getHeight() / 2), Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
@@ -202,6 +207,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[3] = false;
 					mouseDown[4] = false;
 					mouseDown[5] = false;
+					mouseDown[6] = false;
 				}
 				//BACK BUTTON
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2), Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
@@ -214,6 +220,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[3] = false;
 					mouseDown[4] = false;
 					mouseDown[5] = false;
+					mouseDown[6] = false;
 				}
 				
 				
@@ -228,6 +235,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[3] = false;
 					mouseDown[4] = false;
 					mouseDown[5] = true;
+					mouseDown[6] = false;
 				}
 				
 				//SHOP BUTTON
@@ -241,6 +249,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[3] = false;
 					mouseDown[4] = true;
 					mouseDown[5] = false;
+					mouseDown[6] = false;
 				}
 				//BACK BUTTON
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
@@ -252,6 +261,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[3] = false;
 					mouseDown[4] = false;
 					mouseDown[5] = false;
+					mouseDown[6] = false;
 				}
 			} else if(mouseDown[3] == true){ // when in Info
 				//BACK BUTTON
@@ -264,6 +274,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[3] = false;
 					mouseDown[4] = false;
 					mouseDown[5] = false;
+					mouseDown[6] = false;
 				}
 			} else if(mouseDown[4] == true){ // when in Shop
 				//BACK BUTTON
@@ -277,7 +288,8 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 						mouseDown[3] = false;
 						mouseDown[4] = false;
 						mouseDown[5] = false;
-
+						mouseDown[6] = false;
+						
 						pre = STATE.NULL;
 					} else if(pre == STATE.EXTRA){
 						game.gameState = STATE.EXTRA;
@@ -288,7 +300,8 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 						mouseDown[3] = false;
 						mouseDown[4] = false;
 						mouseDown[5] = false;
-
+						mouseDown[6] = false;
+						
 						pre = STATE.NULL;
 					} 
 				}
@@ -385,7 +398,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 						try {
 							listModel.addElement(FileHelper.getAttribute("Name", ':', game.saveData.get(i)));
 						} catch (FileNotFoundException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					}
@@ -461,7 +473,12 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[3] = false;
 					mouseDown[4] = false;
 					mouseDown[5] = false;
+					mouseDown[6] = false;
+					
 				}
+			}
+			else if(mouseDown[7] == true){ // When in Load
+				
 			}
 		}
 	}
@@ -865,6 +882,10 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 			g.drawRect(Game.WIDTH/4 - 2, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) - 42, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20);
 			g.drawString("BACK", Game.WIDTH/2 - MU_SIZE.stringWidth("BACK") / 2, Game.HEIGHT * 5/6);
 		}
+		
+		if(game.gameState == STATE.LOAD){
+			
+		}
 	}
 
 	public static int getCurrency() {
@@ -889,7 +910,5 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 		}
 		return Integer.MIN_VALUE;
 	}
-
-	
 
 }

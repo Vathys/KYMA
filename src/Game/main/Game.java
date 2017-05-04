@@ -48,7 +48,8 @@ public class Game extends Canvas implements Runnable {
 		GAME,
 		PAUSE,
 		REVERSEHIDE,
-		SAVE
+		SAVE,
+		LOAD
 	};
 
 	
