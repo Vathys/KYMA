@@ -46,6 +46,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 	private static int currency;
 	private int change;
 	public static boolean rendered;
+	public static boolean loaded = false;
 	public Handler particleHand;
 	private ParticleEffect p;
 	private HUD hud;
@@ -124,9 +125,10 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 				//PLAY BUTTON
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 2/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
 					
-					game.gameState = STATE.LOAD;
-					mouseDown[6] = true;
-					
+					while(loaded){
+						game.gameState = STATE.LOAD;
+						mouseDown[6] = true;
+					}
 					
 					
 					
@@ -607,6 +609,8 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 		}
 		else if(e.getActionCommand().equals("load")){
 			
+			
+			loaded = true;
 		}
 	}
 	
