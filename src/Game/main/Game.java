@@ -73,6 +73,7 @@ public class Game extends Canvas implements Runnable {
 			}
 			i++;
 		} while(t);
+		
 		/*
 		 * Process for creating files
 		 * 
@@ -183,7 +184,7 @@ public class Game extends Canvas implements Runnable {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		if(gameState == STATE.MENU || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE){
+		if(gameState == STATE.MENU || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE || gameState == STATE.LOAD){
 			handler.render(g);
 			menu.render(g);
 		}
