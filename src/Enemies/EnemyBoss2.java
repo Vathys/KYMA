@@ -17,7 +17,7 @@ public class EnemyBoss2 extends GameObject{
 	private Random r = new Random();
 	Image i;
 	
-	private int timer = 175;
+	private int timer = 203;
 	private int timer2 = 30;
 	
 	//BossMesh mesh;
@@ -26,7 +26,7 @@ public class EnemyBoss2 extends GameObject{
 		super(x, y, id);
 		
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		i = toolkit.getImage("res/Bosses/Boss 3.png");
+		i = toolkit.getImage("res/Bosses/Boss 2.png");
 		
 		this.handler = handler;
 
@@ -66,7 +66,7 @@ public class EnemyBoss2 extends GameObject{
 		velX = Game.clamp(velX, -15, 15);
 			
 		int spawn = r.nextInt(7);
-		if(spawn == 0) handler.addObject(new BasicBullet(x + 64, y + 200, ID.Enemy, Color.MAGENTA, handler));
+		if(spawn == 0) handler.addObject(new BasicBullet(x + 64, y + 200, ID.Enemy, Color.GRAY, handler));
 		}
 			
 		//if(y <= 0 || y >= Game.HEIGHT - 42) velY *= -1; //NO BACK

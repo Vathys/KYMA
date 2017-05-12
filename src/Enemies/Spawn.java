@@ -82,7 +82,7 @@ public class Spawn {
 			if(scoreKeep == 4000){
 				hud.setWave(9);   
 				handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.lightGray, handler));
-			}
+			} 
 			if(scoreKeep == 4500){
 				hud.setWave(10);  
 				handler.clearEnemies();
@@ -90,7 +90,7 @@ public class Spawn {
 				handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
 				handler.addObject(new EnemyBoss1(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
 			}
-			if(scoreKeep == 5200){
+			if(scoreKeep == 6500){
 				hud.setWave(11);
 				handler.clearEnemies();
 				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH + 20), r.nextInt(Game.HEIGHT + 46), ID.Enemy, Color.red, handler));
@@ -102,17 +102,39 @@ public class Spawn {
 					}
 				}
 			}
-			if(scoreKeep >= 5700 && scoreKeep < 9700 && scoreKeep % 500 == 200){
+			if(scoreKeep >= 7000 && scoreKeep < 11000 && scoreKeep % 500 == 0){
 				wave();
 			}
-			if(scoreKeep == 9700){
+			if(scoreKeep == 11000){
 				hud.setWave(20);  
 				handler.clearEnemies();
 				
 				handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
 				handler.addObject(new EnemyBoss2(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
+			} 
+			if(scoreKeep == 13000){
+				hud.setWave(21);
+				handler.clearEnemies();
+				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH + 20), r.nextInt(Game.HEIGHT + 46), ID.Enemy, Color.red, handler));
+				for(int i = 0; i < handler.object.size(); i++){
+					GameObject tempObject = handler.object.get(i);
+					if(tempObject.id == ID.Player){
+						Player player = (Player)tempObject;
+						player.resetPos();
+					}
+				}
 			}
-			if(randomSpawn(20) && randomSpawn(10) && coinSpawned < 10){
+			if(scoreKeep >= 13500 && scoreKeep < 17500 && scoreKeep % 500 == 0){
+				wave();
+			}
+			if(scoreKeep == 17500){
+				hud.setWave(30);  
+				handler.clearEnemies();
+				
+				handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
+				handler.addObject(new EnemyBoss3(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
+			} 
+			if(randomSpawn(20) && randomSpawn(10) && coinSpawned < 10 && hud.getWave() != 10 && hud.getWave() != 20 && hud.getWave() != 30){
 				handler.addObject(new Coins(r.nextInt(Game.WIDTH - 	41), r.nextInt(Game.HEIGHT - 41),ID.Coin, handler));
 				coinSpawned++;
 			}

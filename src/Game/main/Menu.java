@@ -855,6 +855,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 		}
 		
 		if(game.gameState == STATE.SAVE){
+			particleHand.render(g);
 			g.setColor(Color.white);
 			
 			Font fnt = MU.deriveFont(Font.PLAIN, 85);

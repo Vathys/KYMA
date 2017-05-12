@@ -54,8 +54,8 @@ public class Game extends Canvas implements Runnable {
 
 	
 	public Game() {
-		//AudioPlayer.load();
-		//AudioPlayer.getMusic("Menu_Music").loop();
+		AudioPlayer.load();
+		AudioPlayer.getMusic("Menu_Music").loop();
 		
 		handler = new Handler();
 		hud = new HUD(this, handler);

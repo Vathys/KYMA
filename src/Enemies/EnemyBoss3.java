@@ -11,7 +11,7 @@ import java.util.Random;
 
 import Game.main.*;
 
-public class EnemyBoss1 extends GameObject{
+public class EnemyBoss3 extends GameObject{
 	
 	private Handler handler;
 	private Random r = new Random();
@@ -22,11 +22,11 @@ public class EnemyBoss1 extends GameObject{
 	
 	BossMesh mesh;
 	
-	public EnemyBoss1(float x, float y, ID id, Handler handler){
+	public EnemyBoss3(float x, float y, ID id, Handler handler){
 		super(x, y, id);
 		
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		i = toolkit.getImage("res/Bosses/Boss 1.png");
+		i = toolkit.getImage("res/Bosses/Boss 3.png");
 		
 		this.handler = handler;
 
@@ -66,7 +66,7 @@ public class EnemyBoss1 extends GameObject{
 		velX = Game.clamp(velX, -15, 15);
 			
 		int spawn = r.nextInt(7);
-		if(spawn == 0) handler.addObject(new BasicBullet(x + 64, y + 200, ID.Enemy, Color.GREEN, handler));
+		if(spawn == 0) handler.addObject(new BasicBullet(x + 64, y + 200, ID.Enemy, Color.MAGENTA, handler));
 		}
 			
 		//if(y <= 0 || y >= Game.HEIGHT - 42) velY *= -1; //NO BACK
