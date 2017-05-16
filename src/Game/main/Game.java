@@ -54,8 +54,8 @@ public class Game extends Canvas implements Runnable {
 
 	
 	public Game() {
-		AudioPlayer.load();
-		AudioPlayer.getMusic("Menu_Music").loop();
+		//AudioPlayer.load();
+		//AudioPlayer.getMusic("Menu_Music").loop();
 		
 		handler = new Handler();
 		hud = new HUD(this, handler);
@@ -151,7 +151,7 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void tick(){
-		if(gameState == STATE.MENU || gameState == STATE.END || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE) {
+		if(gameState == STATE.MENU || gameState == STATE.END || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE || gameState == STATE.LOAD) {
 			menu.particleHand.tick();
 			menu.tick();
 		}
@@ -183,7 +183,7 @@ public class Game extends Canvas implements Runnable {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		if(gameState == STATE.MENU || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE){
+		if(gameState == STATE.MENU || gameState == STATE.INFO || gameState == STATE.EXTRA || gameState == STATE.SHOP || gameState == STATE.SAVE || gameState == STATE.LOAD){
 			handler.render(g);
 			menu.render(g);
 		}
