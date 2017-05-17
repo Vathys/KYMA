@@ -1,0 +1,8 @@
+Name:Erik
+Highest Score:9300
+Highest Wave:16
+Health Upgrade:1000
+Speed Upgrade:20
+Defense Upgrade:100
+Coin Upgrade:5
+Coins:342149

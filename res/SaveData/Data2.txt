@@ -1,0 +1,8 @@
+Name:ErikNoCheat 
+Highest Score:19899
+Highest Wave:30
+Health Upgrade:0
+Speed Upgrade:20
+Defense Upgrade:100
+Coin Upgrade:5
+Coins:342469

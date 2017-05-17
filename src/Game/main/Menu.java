@@ -360,7 +360,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 						}
 					}
 				}
-				
 				//DEEP
 				if(mouseOver(mx, my, 715, 172 - 35, 215, 70)){  //HEALTH APPLY
 					if(currency >= HP_COST){
@@ -372,7 +371,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					//COSTS THE LEAST
 					
 				}
-				
 				if(mouseOver(mx, my, 715, 279 - 35, 215, 70)){  //SPEED APPLY
 					if(currency >= SPEED_COST){
 						currency -= SPEED_COST;
@@ -381,7 +379,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 						SPEED_COST = 0;
 					} 
 				}
-				
 				if(mouseOver(mx, my, 715, 386 - 35, 215, 70)){  //DEFENSE APPLY
 					if(currency >= DEFENSE_COST){
 						currency -= DEFENSE_COST;
@@ -391,8 +388,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					}
 					//MORE EXPENSIVE THAN HEALTH AND LESS EXPENSIVE THAN SPEED
 					
-				}
-				
 				if(mouseOver(mx, my, 715, 493 - 35, 215, 70)){  //COINS APPLY
 					if(currency >= COIN_COST){
 						currency -= COIN_COST;
