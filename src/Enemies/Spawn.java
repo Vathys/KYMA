@@ -41,7 +41,7 @@ public class Spawn {
 	public void tick(){
 		scoreKeep++;
 			if(CheatCode.UpGame){
-				hud.setScore(hud.getScore()+500);
+				HUD.setScore(HUD.getScore()+500);
 				scoreKeep += 500;
 				CheatCode.UpGame = false;
 			}

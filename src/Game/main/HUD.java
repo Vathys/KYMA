@@ -23,7 +23,6 @@ public class HUD{
 	
 	private boolean[] mouseDown = new boolean[2];
 	private static int score = 0;
-	private int savedScore;
 	private static int wave = 1;
 	private Font J;
 	private Font INFO;

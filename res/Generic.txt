@@ -1,6 +1,6 @@
-Name:Test2
+Name:Gen
 Highest Score:0
-Highest Wave:1
+Highest Wave:0
 Health Upgrade:0
 Speed Upgrade:5
 Defense Upgrade:0

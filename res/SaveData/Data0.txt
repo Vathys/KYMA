@@ -1,8 +1,8 @@
-Name:Deep
-Highest Score:1655
-Highest Wave:4
-Health Upgrade:0
+Name:Test
+Highest Score:0
+Highest Wave:1
+Health Upgrade:1000
 Speed Upgrade:5
-Defense Upgrade:1
+Defense Upgrade:0
 Coin Upgrade:1
-Coins:8
+Coins:996999

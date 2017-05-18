@@ -36,10 +36,22 @@ public class KeyInput extends KeyAdapter{
 				
 				if(tempObject.getID() == ID.Player && game.gameState == STATE.GAME){                 //All Key Events For Player 1
 					
-					if(key == KeyEvent.VK_W){ tempObject.setVelY((int)Player.getSpeed() * -1); keyDown[0] = true; }
-					if(key == KeyEvent.VK_S){ tempObject.setVelY((int)Player.getSpeed()); keyDown[1] = true; }
-					if(key == KeyEvent.VK_D){ tempObject.setVelX((int)Player.getSpeed()); keyDown[2] = true; }
-					if(key == KeyEvent.VK_A){ tempObject.setVelX((int)Player.getSpeed() * -1); keyDown[3] = true; } 
+					if(key == KeyEvent.VK_W){
+						tempObject.setVelY((int)Player.getSpeed() * -1); keyDown[0] = true; 
+						//System.out.println("UP");
+					}
+					if(key == KeyEvent.VK_S){ 
+						tempObject.setVelY((int)Player.getSpeed()); keyDown[1] = true; 
+						//System.out.println("DOWN");
+					}
+					if(key == KeyEvent.VK_D){ 
+						tempObject.setVelX((int)Player.getSpeed()); keyDown[2] = true; 
+						//System.out.println("RIGHT");
+					}
+					if(key == KeyEvent.VK_A){ 
+						tempObject.setVelX((int)Player.getSpeed() * -1); keyDown[3] = true; 
+						//System.out.println("LEFT");
+					} 
 					if(CheatCode.checkCode(key) && cheatCodeActive == false){
 						HUD.HPLOSS *= -1;
 						cheatCodeActive = true;
