@@ -11,7 +11,7 @@ import java.util.Random;
 
 import Game.main.*;
 
-public class EnemyBoss2 extends GameObject{
+public class EnemyBoss3 extends GameObject{
 	
 	private Handler handler;
 	private Random r = new Random();
@@ -20,13 +20,13 @@ public class EnemyBoss2 extends GameObject{
 	private int timer = 203;
 	private int timer2 = 30;
 	
-	//BossMesh mesh;
+	BossMesh mesh;
 	
-	public EnemyBoss2(float x, float y, ID id, Handler handler){
+	public EnemyBoss3(float x, float y, ID id, Handler handler){
 		super(x, y, id);
 		
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		i = toolkit.getImage("res/Bosses/Boss 2.png");
+		i = toolkit.getImage("res/Bosses/Boss 3.png");
 		
 		this.handler = handler;
 
@@ -36,7 +36,7 @@ public class EnemyBoss2 extends GameObject{
 		vel[0] = velX;
 		vel[1] = velY;
 		
-		//mesh = new BossMesh(x, y, ID.Boss, 3, 200, handler);
+		mesh = new BossMesh(x, y, ID.Boss, 3, 200, handler);
 	}
 	
 	public Rectangle getBounds(){
@@ -47,10 +47,10 @@ public class EnemyBoss2 extends GameObject{
 		x += velX;
 		y += velY;
 		
-		//mesh.x += velX;
-		//mesh.y += velY;
+		mesh.x += velX;
+		mesh.y += velY;
 		
-		//mesh.tick();
+		mesh.tick();
 		
 		if(timer <= 0) velY = 0;
 		else timer--;
@@ -66,7 +66,7 @@ public class EnemyBoss2 extends GameObject{
 		velX = Game.clamp(velX, -15, 15);
 			
 		int spawn = r.nextInt(7);
-		if(spawn == 0) handler.addObject(new BasicBullet(x + 64, y + 200, ID.Enemy, Color.GRAY, handler));
+		if(spawn == 0) handler.addObject(new BasicBullet(x + 64, y + 200, ID.Enemy, Color.MAGENTA, handler));
 		}
 			
 		//if(y <= 0 || y >= Game.HEIGHT - 42) velY *= -1; //NO BACK
@@ -82,7 +82,7 @@ public class EnemyBoss2 extends GameObject{
 		g.drawImage(i, (int)x, (int)y, 200, 200, null, null); //editable
 		
 		g.setColor(Color.green);
-		//mesh.render(g);	
+		mesh.render(g);	
 	}
 
 	public void hide(Graphics g) {
