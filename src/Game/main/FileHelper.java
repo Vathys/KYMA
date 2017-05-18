@@ -21,17 +21,6 @@ public class FileHelper {
 	private static int highestWave = 0;
 	
 	
-	/*
-	 * Name
-	 * Highest Score
-	 * Highest Wave
-	 * Health Upgrade
-	 * Speed Upgrade
-	 * Coin Upgrade
-	 * Defense Upgrade
-	 * Coins
-	 * */
-	
 	public static void writeFile(ArrayList<String> n, File file) throws IOException{
 		
 		fWrite = new FileWriter(file);
@@ -105,14 +94,15 @@ public class FileHelper {
 		}
 		gameData.add("Highest Wave:" + highestWave);
 		//Health
-		gameData.add("Health Upgrade:" + (int)HUD.blueHEALTH);
+		gameData.add("Health Upgrade:" + HUD.blueHEALTH);
 		//Speed
-		gameData.add("Speed Upgrade:" + (int)Player.getSpeed());
-		//Defense
-		gameData.add("Defense Upgrade:" + (int)Player.getDefense());
+		gameData.add("Speed Upgrade:" + Player.getSpeed());
 		//Coin val
-		gameData.add("Coin Upgrade:" + (int)Player.getCoinFactor());
-		gameData.add("Coins:" + (int)Menu.getCurrency());
+		gameData.add("Coin Upgrade:" + Player.getCoinFactor());
+		//Defense
+		gameData.add("Defense Upgrade:" + Player.getDefense());
+		
+		gameData.add("Coins:" + Menu.getCurrency());
 		//Skin
 		//Cursor
 		
@@ -147,14 +137,15 @@ public class FileHelper {
 		}
 		gameData.add("Highest Wave:" + highestWave);
 		//Health
-		gameData.add("Health Upgrade:" + (int)HUD.blueHEALTH);
+		gameData.add("Health Upgrade:" + HUD.blueHEALTH);
 		//Speed
-		gameData.add("Speed Upgrade:" + (int)Player.getSpeed());
-		//Defense
-		gameData.add("Defense Upgrade:" + (int)Player.getDefense());
+		gameData.add("Speed Upgrade:" + Player.getSpeed());
 		//Coin val
-		gameData.add("Coin Upgrade:" + (int)Player.getCoinFactor());
-		gameData.add("Coins:" + (int)Menu.getCurrency());
+		gameData.add("Coin Upgrade:" + Player.getCoinFactor());
+		//Defense
+		gameData.add("Defense Upgrade:" + Player.getDefense());
+		
+		gameData.add("Coins:" + Menu.getCurrency());
 		//Skin
 		//Cursor
 		
@@ -167,24 +158,5 @@ public class FileHelper {
 			}
 			
 		}
-	}
-
-	public static void loadGameData(File file){
-		ArrayList<String> data = readFile(file.getPath());
-		Integer temp;
-		temp = Integer.valueOf(data.get(1).substring(data.get(1).indexOf(':') + 1));
-		highestScore = temp.intValue();
-		temp = Integer.valueOf(data.get(2).substring(data.get(2).indexOf(':') + 1));
-		highestWave = temp.intValue();
-		temp = Integer.valueOf(data.get(3).substring(data.get(3).indexOf(':') + 1));
-		HUD.blueHEALTH = temp.floatValue();
-		temp = Integer.valueOf(data.get(4).substring(data.get(4).indexOf(':') + 1));
-		Player.setSpeed(temp.floatValue());
-		temp = Integer.valueOf(data.get(5).substring(data.get(5).indexOf(':') + 1));
-		Player.setDefense(temp.floatValue());
-		temp = Integer.valueOf(data.get(6).substring(data.get(6).indexOf(':') + 1));
-		Player.setCoinfactor(temp.intValue());
-		temp = Integer.valueOf(data.get(7).substring(data.get(7).indexOf(':') + 1));
-		Menu.setCurrency(temp.intValue());
 	}
 }

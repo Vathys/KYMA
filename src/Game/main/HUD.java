@@ -23,19 +23,12 @@ public class HUD{
 	
 	private boolean[] mouseDown = new boolean[2];
 	private static int score = 0;
+	private int savedScore;
 	private static int wave = 1;
-	private Font J, MU;
-	private Font HUD, BOSS, COUNTDOWN;
-	private FontMetrics J_SIZE, MU_SIZE;
+	private Font J;
+	private Font INFO;
+	private FontMetrics J_SIZE;
 	
-	static boolean timer = false;
-	int sleepTime_1 = 300; 
-	int sleepTime_2 = 300;
-	int repeater = 3;
-	
-	public static int BossStage = 0;
-	
-	int countdownTime_1 = 1800;
 	
 	public HUD(Game game, Handler handler){
 		this.game = game;
@@ -46,11 +39,6 @@ public class HUD{
 		
 		try{
 			J = J.createFont(Font.TRUETYPE_FONT, new File("res/Fonts/Justo St.ttf"));
-		}
-		catch(Exception e){}
-		
-		try{
-			MU = MU.createFont(Font.TRUETYPE_FONT, new File("res/Fonts/Mestizos Unidos.otf"));
 		}
 		catch(Exception e){}
 	}
@@ -74,10 +62,7 @@ public class HUD{
 		blueValue = Game.clamp(blueValue, 0, 255);
 		blueValue = blueHEALTH / 5;
 	
-		if(BossStage == 0){
 		score++;
-		}
-		
 		if(greenHEALTH == 0){
 			blueHEALTH = saved;
 			greenHEALTH = 1000;
@@ -100,62 +85,14 @@ public class HUD{
 		g.setColor(Color.white);
 		g.drawRect(15, 15, 300, 32);
 		
-		HUD = J.deriveFont(Font.BOLD, 12);
-		BOSS = MU.deriveFont(Font.BOLD, 100);
-		COUNTDOWN = MU.deriveFont(Font.BOLD, 60);
+		INFO = J.deriveFont(Font.BOLD, 12);
 
-		J_SIZE = g.getFontMetrics(HUD);
-		MU_SIZE = g.getFontMetrics(BOSS);
+		J_SIZE = g.getFontMetrics(J);
 		
-		g.setFont(HUD);
+		g.setFont(INFO);
+		
 		g.drawString("Score: " + score, 18, 64);
 		g.drawString("Wave: " + wave, 19, 80);
-		
-		g.setFont(COUNTDOWN);  //COUNTDOWN
-		g.setColor(Color.red);
-		
-		if(score >= 4400 && score <= 4500){
-		if(score >= 4400 && score <= 4433){
-		g.drawString("3", Game.WIDTH - 70, Game.HEIGHT - 680);
-		}
-		if(score > 4433 && score <= 4466){
-			g.drawString("2", Game.WIDTH - 70, Game.HEIGHT - 680);
-		}
-		if(score > 4466  && score < 4500){
-			g.drawString("1", Game.WIDTH - 70, Game.HEIGHT - 680);
-		}
-		}
-		
-		g.setFont(BOSS);  //BOSS STAGE
-		if(repeater > 0 && wave == 10){
-		BossStage = 1;
-		
-		g.drawString("BOSS STAGE", (Game.WIDTH / 2) - MU_SIZE.stringWidth("BOSS STAGE") / 2, Game.HEIGHT / 2);
-		
-		if(sleepTime_1 > 0){
-			timer = false;
-			sleepTime_1--;
-		}
-		
-		if(sleepTime_1 <= 0 ){
-			timer = true;
-			sleepTime_2--;
-		}
-		
-		if(sleepTime_2 <= 0){
-			timer = false;
-			sleepTime_1 = 300;
-			sleepTime_2 = 300;
-			repeater--;
-		}
-		
-		if(timer == true){
-			g.setColor(Color.BLACK);
-			g.fillRect((Game.WIDTH / 2) - MU_SIZE.stringWidth("BOSS STAGE") / 2 - 20, Game.HEIGHT / 2 - 95, 685, 110);
-		}
-		} else{
-			if(repeater <= 0) BossStage = 0;
-		}
 	}
 	
 	

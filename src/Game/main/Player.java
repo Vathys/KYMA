@@ -39,11 +39,7 @@ public class Player extends GameObject{
 		y += velY;
 		
 		x = Game.clamp(x, 0, Game.WIDTH - 46);
-		if(HUD.getWave() % 10 == 0){
-			y = Game.clamp(y, 200, Game.HEIGHT - 68);
-		}else{
-			y = Game.clamp(y, 0, Game.HEIGHT - 68);
-		}
+		y = Game.clamp(y, 0, Game.HEIGHT - 68);
 		
 		vel[0] = velX;
 		vel[1] = velY;

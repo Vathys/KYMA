@@ -1,8 +1,0 @@
-Name:Gen
-Highest Score:0
-Highest Wave:0
-Health Upgrade:0
-Speed Upgrade:5
-Defense Upgrade:0
-Coin Upgrade:1
-Coins:0
