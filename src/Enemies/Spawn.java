@@ -39,7 +39,9 @@ public class Spawn {
 	}
 	
 	public void tick(){
+		if(HUD.BossStage == 0){
 		scoreKeep++;
+		}
 			if(CheatCode.UpGame){
 				HUD.setScore(HUD.getScore()+500);
 				scoreKeep += 500;
@@ -87,8 +89,10 @@ public class Spawn {
 				hud.setWave(10);  
 				handler.clearEnemies();
 				
+				if(scoreKeep == 4505){
 				handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
 				handler.addObject(new EnemyBoss1(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
+				}
 			}
 			if(scoreKeep == 6500){
 				hud.setWave(11);
