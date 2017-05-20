@@ -146,7 +146,7 @@ public class FileHelper {
 		}
 		gameData.add("Highest Wave:" + highestWave);
 		//Health
-		gameData.add("Health Upgrade:" + (int)HUD.blueHEALTH);
+		gameData.add("Health Upgrade:" + (int)HUD.savedblueHEALTH);
 		//Speed
 		gameData.add("Speed Upgrade:" + (int)Player.getSpeed());
 		//Defense

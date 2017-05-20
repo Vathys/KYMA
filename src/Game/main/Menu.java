@@ -59,6 +59,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 	private DefaultListModel<String> listModel;
 	private JButton button;
 	public FileHelper f = new FileHelper();
+	public int currentIndex;
 	
  	public Menu(Game game, Handler handler, HUD hud){
 		this.game = game;
@@ -110,7 +111,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 		mouseDown[2] = false; // When in Extra
 		mouseDown[3] = false; // When in Info
 		mouseDown[4] = false; // When in Shop
-		mouseDown[5] = false; // When in Save
 		pre = STATE.NULL;
 		return this;
 	}
@@ -174,6 +174,51 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[2] = true;
 					mouseDown[3] = false;
 					mouseDown[4] = false;
+					
+					JPanel panel = new JPanel(new BorderLayout());
+					
+					listModel = new DefaultListModel<String>();
+					for(int i = 0; i < game.saveData.size(); i++){
+						
+						try {
+							listModel.addElement(FileHelper.getAttribute("Name", ':', game.saveData.get(i)));
+						} catch (FileNotFoundException e1) {
+							e1.printStackTrace();
+						}
+					}
+					
+					list = new JList<String>(listModel);
+					list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					list.setSelectedIndex(0);
+					list.addListSelectionListener(this);
+					list.setVisibleRowCount(5);
+					JScrollPane listScrollPane = new JScrollPane(list);
+					
+					listScrollPane.setVisible(true);
+					button = new JButton("Load");
+					button.setActionCommand("load");
+					button.addActionListener(this);
+					
+					JPanel buttonPane = new JPanel();
+					buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+					buttonPane.add(button);
+					buttonPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+					
+					panel.add(listScrollPane, BorderLayout.CENTER);
+					panel.add(buttonPane, BorderLayout.SOUTH);
+					
+					panel.setOpaque(true);
+					save = new JFrame("Load Saved Data");
+					
+					save.setPreferredSize(new Dimension(500, 400));
+					save.setMinimumSize(new Dimension(200, 150));
+					save.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
+					save.setResizable(false);
+					save.setLocationRelativeTo(null);
+					
+					save.setContentPane(panel);
+					save.pack();
+					save.setVisible(true);
 				}
 				
 				//EXIT BUTTON
@@ -191,6 +236,51 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[2] = true;
 					mouseDown[3] = false;
 					mouseDown[4] = false;
+					
+					JPanel panel = new JPanel(new BorderLayout());
+					
+					listModel = new DefaultListModel<String>();
+					for(int i = 0; i < game.saveData.size(); i++){
+						
+						try {
+							listModel.addElement(FileHelper.getAttribute("Name", ':', game.saveData.get(i)));
+						} catch (FileNotFoundException e1) {
+							e1.printStackTrace();
+						}
+					}
+					
+					list = new JList<String>(listModel);
+					list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					list.setSelectedIndex(0);
+					list.addListSelectionListener(this);
+					list.setVisibleRowCount(5);
+					JScrollPane listScrollPane = new JScrollPane(list);
+					
+					listScrollPane.setVisible(true);
+					button = new JButton("Load");
+					button.setActionCommand("load:shop");
+					button.addActionListener(this);
+					
+					JPanel buttonPane = new JPanel();
+					buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+					buttonPane.add(button);
+					buttonPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+					
+					panel.add(listScrollPane, BorderLayout.CENTER);
+					panel.add(buttonPane, BorderLayout.SOUTH);
+					
+					panel.setOpaque(true);
+					save = new JFrame("Load Saved Data");
+					
+					save.setPreferredSize(new Dimension(500, 400));
+					save.setMinimumSize(new Dimension(200, 150));
+					save.setMaximumSize(new Dimension(Game.WIDTH, Game.HEIGHT));
+					save.setResizable(false);
+					save.setLocationRelativeTo(null);
+					
+					save.setContentPane(panel);
+					save.pack();
+					save.setVisible(true);
 				}
 				//RETRY BUTTON
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 4/6 - (MU_SIZE.getHeight() / 2), Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){
@@ -233,23 +323,26 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 						mouseDown[2] = false;
 						mouseDown[3] = false;
 						mouseDown[4] = false;
-						mouseDown[5] = false;
-						mouseDown[6] = false;
 						
 						pre = STATE.NULL;
 					} else if(pre == STATE.MENU){
 						game.gameState = STATE.MENU;
 						rendered = false;
-						mouseDown[0] = false;
+						mouseDown[0] = true;
 						mouseDown[1] = false;
-						mouseDown[2] = true;
+						mouseDown[2] = false;
 						mouseDown[3] = false;
 						mouseDown[4] = false;
-						mouseDown[5] = false;
-						mouseDown[6] = false;
 						
 						pre = STATE.NULL;
 					} 
+					try {
+						System.out.println("reached");
+						FileHelper.updateGameData(game.saveData.get(currentIndex));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 				for(String itt : tList.keySet()){
 					if(tList.get(itt).contains(mx,  my)){
@@ -297,6 +390,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					if(currency >= HP_COST){
 						currency -= HP_COST;
 						HUD.blueHEALTH += HP_CHANGE;
+						HUD.savedblueHEALTH = HUD.blueHEALTH;
 						HP_CHANGE = 0;
 						HP_COST = 0;
 					}
@@ -342,8 +436,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					mouseDown[2] = false;
 					mouseDown[3] = false;
 					mouseDown[4] = false;
-					mouseDown[5] = false;
-					mouseDown[6] = false;
 				}
 			} 
 			/*
@@ -461,7 +553,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					
 					listScrollPane.setVisible(true);
 					button = new JButton("Load");
-					button.setActionCommand("load");
+					button.setActionCommand("load:play");
 					button.addActionListener(this);
 					
 					JPanel buttonPane = new JPanel();
@@ -487,8 +579,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 				}
 				
 				if(mouseOver(mx, my, Game.WIDTH/4, Game.HEIGHT * 5/6 - (MU_SIZE.getHeight() / 2) - 40, Game.WIDTH * 3 / 4 - Game.WIDTH/4 , MU_SIZE.getHeight() + 20)){ // Create New
-					game.saveData.add(new File("res/SaveData/Data" + game.saveData.size() + ".txt"));
-					
 					save = new JFrame("Save");
 					
 					textField.setEditable(true);
@@ -536,13 +626,14 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 			
 			FileHelper.createGameData(game.saveData.get(game.saveData.size() - 1), text);
 			FileHelper.loadGameData(gen);
+			currentIndex = game.saveData.size() - 1;
 			
 			textField.setEditable(false);
 			save.setVisible(false);
 			game.requestFocus();
 			startGame();
 		}
-		else if(e.getActionCommand().equals("load")){
+		else if(e.getActionCommand().substring(0, 4).equals("load")){
 			int index = list.getSelectedIndex();
 			
 			String name = new String();
@@ -557,11 +648,15 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 				
 				if(name.equals(listModel.get(index))){
 					FileHelper.loadGameData(game.saveData.get(i));
+					currentIndex = i;
+					break;
 				}
 			}
+			
 			save.setVisible(false);
 			game.requestFocus();
-			startGame();
+			if(e.getActionCommand().substring(5).equals("play"))
+				startGame();
 		}
 		/*
 		else if(e.getActionCommand().equals("update")){

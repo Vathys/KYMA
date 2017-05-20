@@ -55,7 +55,6 @@ public class Game extends Canvas implements Runnable {
 	public Game() {
 		//AudioPlayer.load();
 		//AudioPlayer.getMusic("Menu_Music").loop();
-		
 		handler = new Handler();
 		hud = new HUD(this, handler);
 		spawner = new Spawn(handler, hud);
@@ -72,7 +71,6 @@ public class Game extends Canvas implements Runnable {
 			}
 			i++;
 		} while(t);
-		
 		/*
 		 * Process for creating files
 		 * 
@@ -201,9 +199,9 @@ public class Game extends Canvas implements Runnable {
 			menu.render(g);
 		}
 		if(gameState == STATE.REVERSEHIDE){
-				handler.restore(g);
-				FPStrace = 1;
-				gameState = STATE.GAME;
+			handler.restore(g);
+			FPStrace = 1;
+			gameState = STATE.GAME;
 		}
 		
 		

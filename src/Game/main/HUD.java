@@ -14,7 +14,7 @@ public class HUD{
 
 	private Game game;
 	private Handler handler;
-	private float saved;
+	public static float savedblueHEALTH;
 	public static float greenHEALTH = 1000;
 	public static float blueHEALTH = 0;      //When At Max = 1000
 	private float greenValue = 255;
@@ -59,7 +59,7 @@ public class HUD{
 		this.handler = handler;
 		
 		greenHEALTH = 1000;
-		saved = blueHEALTH;
+		savedblueHEALTH = blueHEALTH;
 		greenValue = 225;
 		blueValue = 225;
 		return this;
@@ -77,7 +77,7 @@ public class HUD{
 		if(BossStage == 0)
 			score++;
 		if(greenHEALTH == 0){
-			blueHEALTH = saved;
+			blueHEALTH = savedblueHEALTH;
 			greenHEALTH = 1000;
 			return true;
 		}
