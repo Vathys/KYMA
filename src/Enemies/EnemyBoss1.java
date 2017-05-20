@@ -18,7 +18,7 @@ public class EnemyBoss1 extends GameObject{
 	Image i;
 	
 	private int timer = 175;
-	private int timer2 = 30;
+	private int timer2 = 200;
 	
 	BossMesh mesh;
 	

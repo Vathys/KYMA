@@ -39,83 +39,109 @@ public class Spawn {
 	}
 	
 	public void tick(){
-		scoreKeep++;
-			if(CheatCode.UpGame){
-				hud.setScore(hud.getScore()+500);
-				scoreKeep += 500;
-				CheatCode.UpGame = false;
-			}
-			if(scoreKeep == 1){
-				handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
-				handler.addObject(new BasicEnemy(Game.WIDTH / 2 + 40, Game.HEIGHT / 2 - 30, ID.Enemy, Color.red, handler));
-			}
-			if(scoreKeep == 500){
-				hud.setWave(2);
-				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 46), ID.Enemy, Color.yellow, handler));
-			}
-			if(scoreKeep == 1000){
-				hud.setWave(3);
-				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 50), ID.Enemy, Color.magenta, handler));
-			}
-			if(scoreKeep == 1500){
-				hud.setWave(4);
-				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 55), ID.Enemy, Color.pink, handler));
-			}
-			if(scoreKeep == 2000){
-				hud.setWave(5);
-				handler.addObject(new LeftRigthEnemy(r.nextInt(Game.WIDTH - 22), Game.HEIGHT - 44, ID.Enemy, Color.orange, handler));
-				handler.addObject(new LeftRigthEnemy(r.nextInt(Game.WIDTH - 22), 0, ID.Enemy, Color.orange, handler));
-			}
-			if(scoreKeep == 2500){
-				hud.setWave(6);
-				handler.addObject(new UpDownEnemy(0, r.nextInt(Game.HEIGHT - 45), ID.Enemy, Color.orange, handler));                                                         
-				handler.addObject(new UpDownEnemy(Game.WIDTH - 22, r.nextInt(Game.HEIGHT - 45), ID.Enemy, Color.orange,  handler));
-			}
-			if(scoreKeep == 3000){
-				hud.setWave(7); 
-				handler.addObject(new VerticallyFastEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.cyan, handler));
-			}
-			if(scoreKeep == 3500){
-				hud.setWave(8);  
-				handler.addObject(new HorizontallyFastEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.green, handler));	
-			}
-			if(scoreKeep == 4000){
-				hud.setWave(9);   
-				handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.lightGray, handler));
-			}
-			if(scoreKeep == 4500){
-				hud.setWave(10);  
-				handler.clearEnemies();
+		if(HUD.BossStage == 0)
+			scoreKeep++;
+		if(CheatCode.UpGame){
+			HUD.setScore(HUD.getScore()+500);
+			scoreKeep += 500;
+			CheatCode.UpGame = false;
+		}
+		if(scoreKeep == 1){
+			handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
+			handler.addObject(new BasicEnemy(Game.WIDTH / 2 + 40, Game.HEIGHT / 2 - 30, ID.Enemy, Color.red, handler));
+		}
+		if(scoreKeep == 500){
+			HUD.setWave(2);
+			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 46), ID.Enemy, Color.yellow, handler));
+		}
+		if(scoreKeep == 1000){
+			HUD.setWave(3);
+			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 50), ID.Enemy, Color.magenta, handler));
+		}
+		if(scoreKeep == 1500){
+			HUD.setWave(4);
+			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 55), ID.Enemy, Color.pink, handler));
+		}
+		if(scoreKeep == 2000){
+			HUD.setWave(5);
+			handler.addObject(new LeftRigthEnemy(r.nextInt(Game.WIDTH - 22), Game.HEIGHT - 44, ID.Enemy, Color.orange, handler));
+			handler.addObject(new LeftRigthEnemy(r.nextInt(Game.WIDTH - 22), 0, ID.Enemy, Color.orange, handler));
+		}
+		if(scoreKeep == 2500){
+			HUD.setWave(6);
+			handler.addObject(new UpDownEnemy(0, r.nextInt(Game.HEIGHT - 45), ID.Enemy, Color.orange, handler));                                                         
+			handler.addObject(new UpDownEnemy(Game.WIDTH - 22, r.nextInt(Game.HEIGHT - 45), ID.Enemy, Color.orange,  handler));
+		}
+		if(scoreKeep == 3000){
+			HUD.setWave(7); 
+			handler.addObject(new VerticallyFastEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.cyan, handler));
+		}
+		if(scoreKeep == 3500){
+			HUD.setWave(8);  
+			handler.addObject(new HorizontallyFastEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.green, handler));	
+		}
+		if(scoreKeep == 4000){
+			HUD.setWave(9);   
+			handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 20), r.nextInt(Game.HEIGHT - 42), ID.Enemy, Color.lightGray, handler));
+		}
+		if(scoreKeep == 4500){
+			HUD.setWave(10);  
+			handler.clearEnemies();
 				
+			if(scoreKeep == 4505){
 				handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
 				handler.addObject(new EnemyBoss1(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
 			}
-			if(scoreKeep == 5200){
-				hud.setWave(11);
-				handler.clearEnemies();
-				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH + 20), r.nextInt(Game.HEIGHT + 46), ID.Enemy, Color.red, handler));
-				for(int i = 0; i < handler.object.size(); i++){
-					GameObject tempObject = handler.object.get(i);
-					if(tempObject.id == ID.Player){
-						Player player = (Player)tempObject;
-						player.resetPos();
-					}
+		}
+		if(scoreKeep == 6500){
+			HUD.setWave(11);
+			handler.clearEnemies();
+			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH + 20), r.nextInt(Game.HEIGHT + 46), ID.Enemy, Color.red, handler));
+			for(int i = 0; i < handler.object.size(); i++){
+				GameObject tempObject = handler.object.get(i);
+				if(tempObject.id == ID.Player){
+					Player player = (Player)tempObject;
+					player.resetPos();
 				}
 			}
-			if(scoreKeep >= 5700 && scoreKeep < 9700 && scoreKeep % 500 == 200){
-				wave();
+		}
+		if(scoreKeep >= 7000 && scoreKeep < 11000 && scoreKeep % 500 == 0){
+			wave();
+		}
+		if(scoreKeep == 11000){
+			HUD.setWave(20);  
+			handler.clearEnemies();
+			
+			handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
+			handler.addObject(new EnemyBoss2(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
+		}
+		
+		if(scoreKeep == 13000){
+			HUD.setWave(21);
+			handler.clearEnemies();
+			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH + 20), r.nextInt(Game.HEIGHT + 46), ID.Enemy, Color.red, handler));
+			for(int i = 0; i < handler.object.size(); i++){
+				GameObject tempObject = handler.object.get(i);
+				if(tempObject.id == ID.Player){
+					Player player = (Player)tempObject;
+					player.resetPos();
+				}
 			}
-			if(scoreKeep == 9700){
-				hud.setWave(20);  
-				handler.clearEnemies();
-				
-				handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
-				handler.addObject(new EnemyBoss2(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
-			}
-			if(randomSpawn(20) && randomSpawn(10) && coinSpawned < 10){
-				handler.addObject(new Coins(r.nextInt(Game.WIDTH - 	41), r.nextInt(Game.HEIGHT - 41),ID.Coin, handler));
-				coinSpawned++;
-			}
+		}
+		if(scoreKeep >= 13500 && scoreKeep < 17500 && scoreKeep % 500 == 0){
+			wave();
+		}
+		if(scoreKeep == 17500){
+			HUD.setWave(30);  
+			handler.clearEnemies();
+			
+			handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
+			handler.addObject(new EnemyBoss3(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
+		} 
+		if(randomSpawn(20) && randomSpawn(10) && coinSpawned < 10 && HUD.getWave() != 10 && HUD.getWave() != 20 && HUD.getWave() != 30){
+			handler.addObject(new Coins(r.nextInt(Game.WIDTH - 	41), r.nextInt(Game.HEIGHT - 41),ID.Coin, handler));
+			coinSpawned++;
+		}
 	}
 	
 	public void wave(){
@@ -137,6 +163,7 @@ public class Spawn {
 		}
 		
 	}
+	
 	public Color rand0mColor(){
 		switch(r.nextInt(8)){
 		case 0 : return Color.green;
