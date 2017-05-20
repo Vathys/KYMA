@@ -1,0 +1,8 @@
+Name:Test2
+Highest Score:2274
+Highest Wave:5
+Health Upgrade:10
+Speed Upgrade:5
+Defense Upgrade:0
+Coin Upgrade:1
+Coins:0
