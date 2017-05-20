@@ -59,7 +59,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 	private DefaultListModel<String> listModel;
 	private JButton button;
 	public FileHelper f = new FileHelper();
-	public int currentIndex;
+	public int currentIndex[];
 	
  	public Menu(Game game, Handler handler, HUD hud){
 		this.game = game;
@@ -68,6 +68,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 		
 		textField = new JTextField(20);
 		save = new JFrame();
+		currentIndex = new int[2];
 		
 		mouseDown[0] = true;  // When in Menu
 		mouseDown[1] = false; // When in End 
@@ -119,8 +120,8 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 		if(Game.gameOver){
 			game.inGame();
 			game.gameState = STATE.MENU;
-			Game.gameOver = false;
 		}
+		
 		
 		handler.clear(); // INSTA DEATH
 		HUD.setScore(0);
@@ -196,7 +197,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 					
 					listScrollPane.setVisible(true);
 					button = new JButton("Load");
-					button.setActionCommand("load");
+					button.setActionCommand("load:shop");
 					button.addActionListener(this);
 					
 					JPanel buttonPane = new JPanel();
@@ -337,8 +338,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 						pre = STATE.NULL;
 					} 
 					try {
-						System.out.println("reached");
-						FileHelper.updateGameData(game.saveData.get(currentIndex));
+						FileHelper.updateGameData(game.saveData.get(currentIndex[1]));
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -609,7 +609,6 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		
 		if(e.getActionCommand().equals("save new in")){
 			String text = textField.getText();
 			game.saveData.add(new File("res/SaveData/Data" + game.saveData.size() + ".txt"));
@@ -626,7 +625,7 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 			
 			FileHelper.createGameData(game.saveData.get(game.saveData.size() - 1), text);
 			FileHelper.loadGameData(gen);
-			currentIndex = game.saveData.size() - 1;
+			currentIndex[0] = game.saveData.size() - 1;
 			
 			textField.setEditable(false);
 			save.setVisible(false);
@@ -648,7 +647,10 @@ public class Menu extends MouseAdapter implements ActionListener, ListSelectionL
 				
 				if(name.equals(listModel.get(index))){
 					FileHelper.loadGameData(game.saveData.get(i));
-					currentIndex = i;
+					if(e.getActionCommand().substring(4).equalsIgnoreCase("play"))
+						currentIndex[0] = i;
+					else if(e.getActionCommand().substring(4).equalsIgnoreCase("shop"))
+						currentIndex[1] = i;
 					break;
 				}
 			}

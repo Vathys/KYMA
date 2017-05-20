@@ -1,7 +1,7 @@
 Name:Test1
-Highest Score:1391
-Highest Wave:3
-Health Upgrade:10
+Highest Score:2274
+Highest Wave:5
+Health Upgrade:0
 Speed Upgrade:5
 Defense Upgrade:0
 Coin Upgrade:1

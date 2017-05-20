@@ -160,6 +160,12 @@ public class Game extends Canvas implements Runnable {
 			spawner.tick();
 			handler.tick();
 			if(hud.tick()){
+				try {
+					FileHelper.updateGameData(saveData.get(menu.currentIndex[0]));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Menu.rendered = false;
 				gameState = STATE.END;
 			}
