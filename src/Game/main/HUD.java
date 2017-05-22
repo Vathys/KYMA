@@ -126,8 +126,8 @@ public class HUD{
 		}
 		
 		g.setFont(BOSS);  //BOSS STAGE
-		if(repeater > 0 && wave == 10){
-			BossStage = 1;
+		if(repeater > 0 && wave % 10 == 0){
+			BossStage = wave / 10;
 		
 			g.drawString("BOSS STAGE", (Game.WIDTH / 2) - MU_SIZE.stringWidth("BOSS STAGE") / 2, Game.HEIGHT / 2);
 			

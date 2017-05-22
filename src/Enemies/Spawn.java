@@ -87,11 +87,10 @@ public class Spawn {
 		if(scoreKeep == 4500){
 			HUD.setWave(10);  
 			handler.clearEnemies();
-				
-			if(scoreKeep == 4505){
-				handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
-				handler.addObject(new EnemyBoss1(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
-			}
+		}
+		if(scoreKeep == 4505){
+			handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
+			handler.addObject(new EnemyBoss1(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
 		}
 		if(scoreKeep == 6500){
 			HUD.setWave(11);
@@ -112,6 +111,8 @@ public class Spawn {
 			HUD.setWave(20);  
 			handler.clearEnemies();
 			
+		}
+		if(scoreKeep == 11005){
 			handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
 			handler.addObject(new EnemyBoss2(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
 		}
@@ -135,10 +136,12 @@ public class Spawn {
 			HUD.setWave(30);  
 			handler.clearEnemies();
 			
+		} 
+		if(scoreKeep == 17505){
 			handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
 			handler.addObject(new EnemyBoss3(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
-		} 
-		if(randomSpawn(20) && randomSpawn(10) && coinSpawned < 10 && HUD.getWave() != 10 && HUD.getWave() != 20 && HUD.getWave() != 30){
+		}
+		if(randomSpawn(20) && randomSpawn(10) && coinSpawned < 1){
 			handler.addObject(new Coins(r.nextInt(Game.WIDTH - 	41), r.nextInt(Game.HEIGHT - 41),ID.Coin, handler));
 			coinSpawned++;
 		}
