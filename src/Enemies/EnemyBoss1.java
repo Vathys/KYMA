@@ -17,8 +17,8 @@ public class EnemyBoss1 extends GameObject{
 	private Random r = new Random();
 	Image i;
 	
-	private int timer = 200;
-	private int timer2 = 5;
+	private int timer = 175;
+	private int timer2 = 30;
 	
 	BossMesh mesh;
 	

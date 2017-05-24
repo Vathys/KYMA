@@ -113,20 +113,20 @@ public class HUD{
 		g.setFont(COUNTDOWN);  //COUNTDOWN
 		g.setColor(Color.red);
 		
-		if(score >= 4400 && score <= 4500){
-			if(score >= 4400 && score <= 4433){
+		if((score >= 4400 && score <= 4500) || (score >= 10900 && score <= 11000) || (score >= 17400 && score <= 17500)){
+			if((score >= 4400 && score <= 4433) || (score >= 10900 && score <= 10933) || (score >= 17400 && score <= 17433)){
 				g.drawString("3", Game.WIDTH - 70, Game.HEIGHT - 680);
 			}
-			if(score > 4433 && score <= 4466){
+			if((score > 4433 && score <= 4466) || (score > 10933 && score <= 10966) || (score > 17433 && score <= 17466)){
 				g.drawString("2", Game.WIDTH - 70, Game.HEIGHT - 680);
 			}
-			if(score > 4466  && score < 4500){
+			if((score > 4466  && score < 4500) || (score > 10966  && score < 11000) || (score > 17466  && score < 17500)){
 				g.drawString("1", Game.WIDTH - 70, Game.HEIGHT - 680);
 			}
 		}
 		
 		g.setFont(BOSS);  //BOSS STAGE
-		if(repeater > 0 && wave % 10 == 0){
+		if(repeater > 0 && (wave == 10 || wave == 20 || wave == 30)){
 			BossStage = wave / 10;
 		
 			g.drawString("BOSS STAGE", (Game.WIDTH / 2) - MU_SIZE.stringWidth("BOSS STAGE") / 2, Game.HEIGHT / 2);

@@ -86,9 +86,9 @@ public class Spawn {
 		}
 		if(scoreKeep == 4500){
 			HUD.setWave(10);  
-			handler.clearEnemies();
+			handler.clear();
 		}
-		if(scoreKeep == 4505){
+		if(scoreKeep == 4501){
 			handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
 			handler.addObject(new EnemyBoss1(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
 		}
@@ -109,14 +109,13 @@ public class Spawn {
 		}
 		if(scoreKeep == 11000){
 			HUD.setWave(20);  
-			handler.clearEnemies();
+			handler.clear();
 			
 		}
-		if(scoreKeep == 11005){
+		if(scoreKeep == 11001){
 			handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
 			handler.addObject(new EnemyBoss2(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
 		}
-		
 		if(scoreKeep == 13000){
 			HUD.setWave(21);
 			handler.clearEnemies();
@@ -134,10 +133,10 @@ public class Spawn {
 		}
 		if(scoreKeep == 17500){
 			HUD.setWave(30);  
-			handler.clearEnemies();
+			handler.clear();
 			
 		} 
-		if(scoreKeep == 17505){
+		if(scoreKeep == 17501){
 			handler.addObject(new Player(Game.WIDTH/2-30, Game.HEIGHT/2-30, ID.Player, handler));
 			handler.addObject(new EnemyBoss3(Game.WIDTH / 2 + 38, -155, ID.Boss, handler));
 		}
