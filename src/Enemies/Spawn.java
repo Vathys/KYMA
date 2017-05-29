@@ -94,6 +94,7 @@ public class Spawn {
 		}
 		if(scoreKeep == 6500){
 			HUD.setWave(11);
+			HUD.repeater = 3;
 			handler.clearEnemies();
 			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH + 20), r.nextInt(Game.HEIGHT + 46), ID.Enemy, Color.red, handler));
 			for(int i = 0; i < handler.object.size(); i++){
@@ -118,6 +119,7 @@ public class Spawn {
 		}
 		if(scoreKeep == 13000){
 			HUD.setWave(21);
+			HUD.repeater = 3;
 			handler.clearEnemies();
 			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH + 20), r.nextInt(Game.HEIGHT + 46), ID.Enemy, Color.red, handler));
 			for(int i = 0; i < handler.object.size(); i++){

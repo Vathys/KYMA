@@ -1,0 +1,8 @@
+Name:Bob
+Highest Score:704
+Highest Wave:2
+Health Upgrade:0
+Speed Upgrade:5
+Defense Upgrade:0
+Coin Upgrade:1
+Coins:2

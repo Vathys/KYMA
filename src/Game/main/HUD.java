@@ -31,8 +31,8 @@ public class HUD{
 	static boolean timer = false;
 	int sleepTime_1 = 300; 
 	int sleepTime_2 = 300;
-	int repeater = 3;
 	
+	public static int repeater = 3;
 	public static int BossStage = 0;
 	
 	int countdownTime_1 = 1800;
