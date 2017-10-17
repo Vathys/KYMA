@@ -50,3 +50,5 @@ Deep:
 
 Cosme:
 *Made each button look bolder to create a smoother graphical look.
+
+Do you still do weekly Updates?
