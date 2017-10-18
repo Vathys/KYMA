@@ -51,4 +51,8 @@ Deep:
 Cosme:
 *Made each button look bolder to create a smoother graphical look.
 
-Do you still do weekly Updates?
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ErikTheCleric: Do you still do weekly Updates?
+
+Vathys: No. Do you still want us to?
